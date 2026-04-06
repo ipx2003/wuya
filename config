@@ -1,0 +1,636 @@
+mixed-port: 7890
+socks-port: 7891
+redir-port: 7892
+tproxy-port: 7893
+allow-lan: false
+mode: rule
+log-level: info
+external-controller: 127.0.0.1:9090
+secret: ""
+
+dns:
+  enable: true
+  ipv6: false
+  enhanced-mode: redir-host
+  nameserver:
+    - 114.114.114.114
+    - 223.5.5.5
+    - 8.8.8.8
+  fallback:
+    - 1.1.1.1
+    - 1.0.0.1
+
+proxies:
+
+# ==================== VLESS 节点 ====================
+- name: "香港03-高速流媒体"
+  type: vless
+  server: 183.240.245.218
+  port: 12311
+  uuid: 123fc30f-41ea-4a70-979f-极速选择
+  cipher: none
+  tls: true
+  servername: 183.240.245.218
+  skip-cert-verify: true
+  network: tcp
+
+- name: "美国01-高速流媒体"
+  type: vless
+  server: 183.240.245.218
+  port: 12312
+  uuid: 123fc30f-41ea-4a70-979f-60f261f8b3f4
+  cipher: none
+  tls: true
+  servername: 183.240.245.218
+  skip-cert-verify: true
+  network: tcp
+
+- name: "美国04-高速流媒体"
+  type: vless
+  server: 183.240.245.218
+  port: 12315
+  uuid: 123fc30f-41ea-4a70-979f-60极速选择
+  cipher: none
+  tls极速选择
+  servername: 183.240.245.218
+  skip-cert-verify: true
+  network: tcp
+
+- name: "美国03-高速流媒体"
+  type: vless
+  server: 183.240.245.218
+  port: 12314
+  uuid: 123fc30f-41ea-4a70-979f-60f261f8b3f4
+  cipher: none
+  tls: true
+  servername: 183.240.245.218
+  skip-cert-verify: true
+  network: tcp
+
+- name: "香港02-高速流媒体"
+  type: vless
+  server: 183.240.245.218
+极速选择
+  uuid: 123fc30f-41ea-4a70-979f-60f261f8b3f4
+  cipher: none
+  tls: true
+  servername: 183.240.245.218
+  skip-cert-verify: true
+  network: tcp
+
+- name: "美国02-高速流媒体"
+  type: vless
+  server: 183.240.245.218
+  port: 12313
+  uuid: 123fc30f-41ea-4a70-979f-60f261f8b3f4
+  cipher: none
+  tls: true
+  servername: 183.240.245.218
+  skip-cert-verify: true
+  network: tcp
+
+- name: "日本03-高速流媒体"
+  type: vless
+  server: 103.140.136.123
+  port: 12316
+  uuid: 123fc30f-41ea-4a70-979f-60f261f8b3f4
+  cipher: none
+  tls: true
+  servername: 103.140.136.123
+  skip-cert-verify: true
+  network: tcp
+
+- name: "台湾02-高速流媒体"
+  type: vless
+  server: 59.125.53.1
+  port: 12316
+  uuid: 123fc30f-41ea-4a70-979f-60f261f8b3f4
+  cipher: none
+  tls: true
+  servername: 220.130.75.170
+  skip-cert-verify: true
+  network: tcp
+
+- name: "台湾06-高速流媒体"
+  type: vless
+  server: 59.125.53.2
+  port: 12316
+  uuid: 123fc30f-41ea-4a70-979f-60f261f8b3f4
+  cipher: none
+  tls: true
+  servername: 220.130.75.174
+  skip-cert-verify: true
+  network: tcp
+
+- name: "台湾04-高速流媒体"
+  type: vless
+  server: 59.125.53.2
+  port: 12318
+  uuid: 123fc30f-41ea-4a70-979f-60f261f8b3f4
+  cipher: none
+  tls: true
+  servername: 220.130.75.172
+  skip-cert-verify: true
+  network: tcp
+
+- name: "台湾01-高速流媒体"
+  type: vless
+  server极速选择
+  port: 12315
+  uuid: 123fc30f-41ea-4a70-979f-60f261f8b3f4
+  cipher: none
+  tls: true
+  servername: 220.130.75.169
+  skip-cert-verify: true
+  network: tcp
+
+- name: "台湾05-高速流媒体"
+  type: vless
+  server: 59.125.53.2
+  port: 12319
+  uuid: 123fc30f-41ea-4a70-979f-60f261f8b3极速选择
+  cipher: none
+  tls: true
+  servername: 220.130.75.173
+  skip-cert-verify: true
+  network: tcp
+
+- name: "台湾03-高速流媒体"
+  type: vless
+  server: 59.125.53.1
+  port: 12317
+  uuid: 123fc30f-41ea-4a70-979f-60f261f8b3f4
+  cipher: none
+  tls: true
+  servername: 220.130.75.171
+  skip-cert-verify: true
+  network: tcp
+
+- name: "泰国-高速流媒体"
+  type: vless
+  server: 38.244.151.47
+  port: 12316
+  uuid: 123fc30f-41ea-4a70-979f-60f261f8b3f4
+  cipher: none
+  tls: true
+  servername: 38.244.151.47
+  skip-cert-verify: true
+  network: tcp
+
+- name: "印尼-高速流媒体"
+  type: vless
+  server: 38.244.147.25
+  port: 12316
+  uuid: 123fc30f-41ea-4a70-979f-60f261f8b3f4
+  cipher: none
+  tls: true
+  servername: 38.244.147.25
+  skip-cert-verify: true
+  network: tcp
+
+- name: "澳大利亚-高速流媒体"
+  type: vless
+  server: 149.33.34.115
+  port: 12316
+  uuid: 123fc30f-41ea-4a70-979f-60f261f8b3f4
+  cipher: none
+  tls: true
+  servername: 149.33.34.115
+  skip-cert-verify: true
+  network: tcp
+
+- name: "新加坡-高速流媒体"
+  type: vless
+  server: 38.180.190.83
+  port: 12316
+  uuid: 123fc30f-41ea-4a70-979f-60f261f8b3f4
+  cipher: none
+  tls: true
+  servername: 38.180.190.83
+  skip-cert-verify: true
+  network: tcp
+
+- name: "保加利亚-高速流媒体"
+  type: vless
+  server: 38.244.133.105
+  port: 12316
+  uuid: 123fc30f-41ea-4a70-979f-60f261f8b3f4
+  cipher: none
+  tls: true
+  servername: 38.244.133.105
+  skip-cert-verify: true
+  network:极速选择
+
+- name: "马来西亚02-高速流媒体"
+  type: vless
+  server: 149.33.30.209
+  port: 12316
+  uuid: 123fc30f-41ea-4a70-979f-60f261f8b3f4
+  cipher: none
+  tls: true
+  servername: 149.33.30.209
+  skip-cert-verify: true
+  network: tcp
+
+- name: "丹麦-高速流媒体"
+  type: vless
+  server: 38.180.72.100
+  port: 12316
+  uuid: 123fc30f-41ea-4a70-979f-60f261f8b3f4
+  cipher: none
+  tls: true
+  servername: 38.180.72.100
+  skip-cert-verify: true
+  network: tcp
+
+- name: "土耳其-高速流媒体"
+  type: vless
+  server: 38.180.112.202
+  port: 12316
+  uuid: 123fc30f-41ea-4a70-979f-60f261f8b3f4
+  cipher: none
+  tls: true
+  servername: 38.180.112.202
+  skip-cert-verify: true
+  network: tcp
+
+- name: "乌克兰-高速流媒体"
+  type: vless
+  server: 130.0.238.62
+  port: 12316
+  uuid: 123fc30f-41ea-4a70-979f-60f261f8b3f4
+  cipher: none
+  tls: true
+  servername: 130.0.238.极速选择
+  skip-cert-verify: true
+  network: tcp
+
+- name: "比利时-高速流媒体"
+  type: vless
+  server: 149.33.25.123
+  port: 12316
+  uuid: 123fc30f-41ea-4a70-979f-60f261f8b3f极速选择
+  cipher: none
+  tls: true
+  servername: 149.33.25.123
+  skip-cert-verify: true
+  network: tcp
+
+- name: "英国-高速流媒体"
+  type: vless
+  server: 38.180.200.170
+  port: 12316
+  uuid: 123fc30f-41ea-4a70-979f-60f261f8b3f4
+  cipher: none
+  tls: true
+  servername: 38.180.200.170
+  skip-cert-verify: true
+  network: tcp
+
+- name: "德国-高速流媒体"
+  type: vless
+  server: 38.244.214.250
+  port: 12316
+  uuid: 123fc30f-41ea-4a70-979f-60f261f8b3f4
+  cipher: none
+  tls: true
+  servername: 38.244.214.250
+  skip-cert-verify: true
+  network: tcp
+
+- name: "哈萨克斯坦-高速流媒体"
+  type: vless
+  server: 188.116.20.122
+  port: 12316
+  uuid: 123fc30f-41ea-4a70-979f-60f261f8b3f4
+  cipher: none
+  tls: true
+  servername: 188.116.20.122
+  skip-cert-verify: true
+  network: tcp
+
+- name: "巴西-高速流媒体"
+  type: vless
+  server: 149.33.22.84
+  port: 12316
+  uuid: 123fc30f-41ea-4a70-979f-60f261f8b3f4
+  cipher: none
+  tls: true
+  servername: 149.33.22.84
+  skip-cert-verify: true
+  network: tcp
+
+- name: "香港01-YouTube"
+  type: vless
+  server: 183.240.245.218
+  port: 12210
+  uuid: 123fc30f-41ea-4a70-979f-60f261f8b3f4
+  cipher: none
+  tls: true
+  servername: 183.240.245.218
+  skip-cert-verify: true
+  network: tcp
+
+# ==================== Shadowsocks 节点 ====================
+- name: "日本大阪"
+  type: ss
+  server: 3.38.183.232
+  port: 80
+  cipher: aes-256-gcm
+  password: dada1203
+
+- name: "日本东京"
+  type: ss
+  server: 13.113.194.109
+  port: 80
+  cipher: aes-256-gcm
+  password: dada1203
+
+- name: "台湾台北"
+  type: ss
+  server: 65.2.143.132
+  port: 80
+  cipher: aes-256-gcm
+  password: dada1203
+
+- name: "韩国仁川"
+  type: ss
+  server: 13.201.30.76
+  port: 80
+  cipher: aes-256-gcm
+  password: dada1203
+
+- name: "美国加州"
+  type: ss
+  server: 16.144.238.62
+  port: 80
+  cipher: aes-256-gcm
+  password: dada1203
+
+- name: "新加坡"
+  type: ss
+  server: 13.135.248.103
+  port: 80
+  cipher: aes-256-gcm
+  password: dada1203
+
+- name: "加拿大温哥华"
+  type: ss
+  server: 52.90.172.115
+  port: 80
+  cipher: aes-256-gcm
+  password: dada1203
+
+- name: "美国"
+  type: ss
+  server: 195.133.5.36
+  port: 60129
+  cipher: aes-256-gcm
+  password: 7ae4e68cf77f6089
+
+- name: "新加坡2"
+  type: ss
+  server: 192.124.176.153
+  port: 8388
+  cipher: aes-256-gcm
+  password: oXGOymGM1IE1
+
+- name: "日本"
+  type: ss
+  server: 185.141.219.123
+  port: 8388
+  cipher: aes-256-gcm
+  password: A8m8DQDM9i7o
+
+- name: "香港"
+  type: ss
+  server: 212.192.12.137
+  port: 8388
+  cipher: aes-256-gcm
+  password: RI0UcGvIkIDo
+
+- name: "台湾"
+  type: ss
+  server: 45.140.169.225
+  port: 20129
+  cipher: aes-256极速选择
+  password: c5fcdf7829112cb4
+
+- name: "法国"
+  type: ss
+  server: 194.87.69.100
+  port: 12091
+  cipher: aes-256-gcm
+  password: 83acf69edb4e5453
+
+- name: "泰国"
+  type: ss
+  server: 89.125.103.52
+  port: 20129
+  cipher: aes-256-gcm
+  password: 9cdc6440d42cb19c
+
+- name: "澳大利亚"
+  type: ss
+  server: 89.125.103.52
+  port: 20129
+  cipher: aes-256-gcm
+  password: 9cdc6440d42cb19c
+
+- name: "加拿大"
+  type: ss
+  server: 195.58.49.100
+  port: 10990
+  cipher: aes-256-gcm
+  password: 9f3d1a6d31468599
+
+- name: "韩国"
+  type: ss
+  server: 203.32.26.157
+  port: 19801
+  cipher: aes-256-gcm
+  password: 63d7c17506d1f48b
+
+- name: "英国"
+  type: ss
+  server: 46.17.44.206
+  port: 60290
+  cipher: aes-256-gcm
+  password: f34579d0148b2581
+
+- name: "西班牙"
+  type: ss
+  server: 46.17.44.206
+  port: 60290
+  cipher: aes-256-gcm
+  password: f34579d0148b2581
+
+- name: "香港2"
+  type: ss
+  server: 212.192.15.209
+  port: 19081
+  cipher: aes-256-gcm
+  password: 7e1dd4c55bf85da5
+
+- name: "俄罗斯"
+  type: ss
+  server: 46.17.40.29
+  port: 10986
+  cipher: aes-256-gcm
+  password: 9ca2803c16de72cd
+
+- name: "日本2"
+  type: ss
+  server: 185.141.219.158
+  port: 30312
+  cipher: aes-256-gcm
+  password: 99394cfebe6c0906
+
+- name: "法国2"
+  type: ss
+  server: 46.17.40.29
+  port: 10986
+  cipher: aes-256-gcm
+  password: 9ca2803c16de72cd
+
+proxy-groups:
+- name: 🚀 自动选择
+  type: url-test
+  url: http://www.gstatic.com/generate_204
+  interval: 300
+  proxies:
+    - 香港03-高速流媒体
+    - 美国01-高速流媒体
+    - 美国04-高速流媒体
+    - 美国03-高速流媒体
+    - 香港02-高速流媒体
+    - 美国02-高速流媒体
+    - 日本03-高速流媒体
+    - 台湾02-高速流媒体
+    - 台湾06-高速流媒体
+    - 台湾04-高速流媒体
+    - 台湾01-高速流媒体
+    - 台湾05-高速流媒体
+    - 台湾03-高速流媒体
+    - 泰国-高速流媒体
+    - 印尼-高速流媒体
+    - 澳大利亚-高速流媒体
+    - 新加坡-高速流媒体
+    - 保加利亚-高速流媒体
+    - 马来西亚02-高速流媒体
+    - 丹麦-高速流媒体
+    - 土耳其-高速流媒体
+    - 乌克兰-高速流媒体
+    - 比利时-高速流媒体
+    - 英国-高速流媒体
+    - 德国-高速流媒体
+    - 哈萨克斯坦-高速流媒体
+    - 巴西-高速流媒体
+    - 香港01-YouTube
+    - 日本大阪
+    - 日本东京
+    - 台湾台北
+    - 韩国仁川
+    - 美国加州
+    - 新加坡
+    - 加拿大温哥华
+    - 美国
+    - 新加坡2
+    - 日本
+    - 香港
+    - 台湾
+    - 法国
+    - 泰国
+    - 澳大利亚
+    - 加拿大
+    - 韩国
+    - 英国
+    - 西班牙
+    - 香港2
+    - 俄罗斯
+    - 日本2
+    - 法国2
+
+- name: 🔰 节点选择
+  type: select
+  proxies:
+    - 🚀 自动选择
+    - DIRECT
+    - 香港03-高速流媒体
+    - 美国01-高速流媒体
+    - 美国04-高速流媒体
+    - 美国03-高速流媒体
+    - 香港02-高速流媒体
+    - 美国02-高速流媒体
+    - 日本03-高速流媒体
+    - 台湾02-高速流媒体
+    - 台湾06-高速流媒体
+    - 台湾04-高速流媒体
+    - 台湾01-高速流媒体
+    - 台湾05-高速流媒体
+    - 台湾03-高速流媒体
+    - 泰国-高速流媒体
+    - 印尼-高速流媒体
+    - 澳大利亚-高速流媒体
+    - 新加坡-高速流媒体
+    - 保加利亚-高速流媒体
+    - 马来西亚02-高速流媒体
+    - 丹麦-高速流媒体
+    - 土耳其-高速流媒体
+    - 乌克兰-高速流媒体
+    - 比利时-高速流媒体
+    - 英国-高速流媒体
+    - 德国-高速流媒体
+    - 哈萨克斯坦-高速流媒体
+    - 巴西-高速流媒体
+    - 香港01-YouTube
+    - 日本大阪
+    - 日本东京
+    - 台湾台北
+    - 韩国极速选择
+    - 美国加州
+    - 新加坡
+    - 加拿大温哥华
+    - 美国
+    - 新加坡2
+    - 日本
+    - 香港
+    - 台湾
+    - 法国
+    - 泰国
+    - 澳大利亚
+    - 加拿大
+    - 韩国
+    - 英国
+    - 西班牙
+    - 香港2
+    - 俄罗斯
+    - 日本2
+    - 法国2
+
+- name: 🌍 国外媒体
+  type: select
+  proxies:
+    - 🔰 节点选择
+    - 🚀 自动选择
+    - DIRECT
+
+rules:
+- DOMAIN-SUFFIX,google.com,🔰 节点选择
+- DOMAIN-SUFFIX,youtube.com,🔰 节点选择
+- DOMAIN-SUFFIX,netflix.com,🌍 国外媒体
+- DOMAIN-SUFFIX,disneyplus.com,🌍 国外媒体
+- DOMAIN-SUFFIX,spotify.com,🌍 国外媒体
+- DOMAIN-SUFFIX,twitter.com,🔰 节点选择
+- DOMAIN-SUFFIX,facebook.com,🔰 节点选择
+- DOMAIN-SUFFIX,instagram.com,🔰 节点选择
+- DOMAIN-SUFFIX,github.com,🔰 节点选择
+- DOMAIN-SUFFIX,amazon.com,🔰 节点选择
+- DOMAIN-SUFFIX,microsoft.com,🔰 节点选择
+- DOMAIN-SUFFIX,apple.com,🔰 节点选择
+- IP-CIDR,10.极速选择
+- IP-CIDR,127.0.0.0/8,DIRECT
+- IP-CIDR,172.16.0.0/12,DIRECT
+- IP-CIDR,192.168.0.0/16,DIRECT
+- GEOIP,CN,DIRECT
+- MATCH,🔰 节点选择
