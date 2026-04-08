@@ -69,7 +69,7 @@ jobs:
                     'udp': True
                 }
                 
-            except Exception as e:
+            except:
                 return None
         
         with open('proxies.txt', 'r') as f:
@@ -103,32 +103,34 @@ jobs:
         with open('mihomo_config.yaml', 'w') as f:
             yaml.dump(config, f, allow_unicode=True)
         
-        print(f"Converted {len(proxies)} nodes")
+        print(f"成功转换 {len(proxies)} 个节点")
         EOF
         
         python convert.py
         
-    - name: 配置Git
+    - name: 使用GitHub CLI推送
       run: |
-        git config --global user.name "GitHub Actions Bot"
-        git config --global user.email "actions@github.com"
+        # 设置GitHub CLI认证
+        echo "${{ secrets.PAT }}" | gh auth login --with-token
         
-    - name: 推送到wuya仓库
-      run: |
-        # 克隆wuya仓库
-        git clone https://${{ secrets.PAT }}@github.com/ipx2003/wuya.git wuya-repo
-        cd wuya-repo
+        # 下载wuya仓库内容
+        gh repo clone ipx2003/wuya wuya-temp
+        cd wuya-temp
         
         # 复制配置文件
         cp ../mihomo_config.yaml .
         
-        # 提交并推送
+        # 提交更改
+        git config user.name "GitHub Actions"
+        git config user.email "actions@github.com"
         git add mihomo_config.yaml
         git commit -m "自动更新Mihomo配置 $(date +'%Y-%m-%d %H:%M:%S')" || exit 0
-        git push
         
-    - name: 显示完成信息
+        # 推送到wuya仓库
+        git push origin main
+        
+    - name: 显示成功信息
       run: |
         echo "✅ 自动完成！"
-        echo "配置文件已推送到: https://github.com/ipx2003/wuya/blob/main/mihomo_config.yaml"
-        echo "Raw链接: https://raw.githubusercontent.com/ipx2003/wuya/main/mihomo_config.yaml"
+        echo "配置文件已推送至: https://github.com/ipx2003/wuya/blob/main/mihomo_config.yaml"
+        echo "订阅链接: https://raw.githubusercontent.com/ipx2003/wuya/main/mihomo_config.yaml"
