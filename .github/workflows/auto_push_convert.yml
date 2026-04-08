@@ -1,4 +1,4 @@
-name: 最终修复版自动转换
+name: 支持VLESS的自动转换
 
 on:
   schedule:
@@ -21,19 +21,17 @@ jobs:
     - name: 安装依赖
       run: pip install requests pyyaml
       
-    - name: 创建最终修复版转换脚本
+    - name: 创建支持VLESS的转换脚本
       run: |
         cat > convert.py << 'EOF'
         import requests
         import yaml
         import base64
-        from urllib.parse import unquote
+        from urllib.parse import unquote, urlparse, parse_qs
         
         def parse_ss_url(ss_url):
-            """只解析SS链接，跳过VLESS等其他协议"""
+            """解析SS链接"""
             ss_url = ss_url.strip()
-            
-            # 跳过非SS链接
             if not ss_url.startswith('ss://'):
                 return None
             
@@ -90,7 +88,7 @@ jobs:
                     except:
                         cipher, password = 'aes-256-gcm', url_part
                 
-                # 修复：解码URL编码的名称
+                # 解码URL编码的名称
                 decoded_remark = unquote(remark)
                 
                 return {
@@ -107,6 +105,68 @@ jobs:
                 print(f"SS解析失败 {ss_url}: {e}")
                 return None
         
+        def parse_vless_url(vless_url):
+            """解析VLESS链接"""
+            vless_url = vless_url.strip()
+            if not vless_url.startswith('vless://'):
+                return None
+            
+            vless_url = vless_url[8:]  # 移除vless://
+            
+            # 分离备注
+            remark = "VLESS_Node"
+            if '#' in vless_url:
+                url_part, remark = vless_url.split('#', 1)
+            else:
+                url_part = vless_url
+            
+            try:
+                # 解析URL部分
+                if '@' in url_part:
+                    # 格式: uuid@host:port?query#remark
+                    uuid_part, server_part = url_part.split('@', 1)
+                    
+                    if '?' in server_part:
+                        server_part, query_part = server_part.split('?', 1)
+                    else:
+                        query_part = ''
+                    
+                    if ':' in server_part:
+                        host, port_str = server_part.split(':', 1)
+                        try:
+                            port = int(port_str)
+                        except:
+                            port = 443
+                    else:
+                        host, port = server_part, 443
+                    
+                    # 解析查询参数
+                    query_params = {}
+                    if query_part:
+                        for param in query_part.split('&'):
+                            if '=' in param:
+                                key, value = param.split('=', 1)
+                                query_params[key] = value
+                    
+                    # 解码URL编码的名称
+                    decoded_remark = unquote(remark)
+                    
+                    return {
+                        'name': decoded_remark.strip(),
+                        'type': 'vless',
+                        'server': host,
+                        'port': port,
+                        'uuid': uuid_part,
+                        'network': query_params.get('type', 'tcp'),
+                        'tls': 'tls' if query_params.get('security') == 'tls' else 'none',
+                        'sni': query_params.get('sni', ''),
+                        'flow': query_params.get('flow', '')
+                    }
+                
+            except Exception as e:
+                print(f"VLESS解析失败 {vless_url}: {e}")
+                return None
+        
         # 获取订阅
         url = "https://raw.githubusercontent.com/ipx2003/onskr/main/proxies.txt"
         response = requests.get(url)
@@ -114,27 +174,37 @@ jobs:
         
         print(f"获取到 {len(all_lines)} 个链接")
         
-        # 只处理SS链接
-        ss_urls = [line for line in all_lines if line.startswith('ss://')]
-        print(f"其中 {len(ss_urls)} 个是SS链接")
+        # 分别处理SS和VLESS链接
+        ss_proxies = []
+        vless_proxies = []
         
-        proxies = []
-        for ss_url in ss_urls:
-            config = parse_ss_url(ss_url)
-            if config:
-                proxies.append(config)
+        for line in all_lines:
+            if line.startswith('ss://'):
+                config = parse_ss_url(line)
+                if config:
+                    ss_proxies.append(config)
+            elif line.startswith('vless://'):
+                config = parse_vless_url(line)
+                if config:
+                    vless_proxies.append(config)
+            else:
+                print(f"跳过未知协议: {line[:50]}...")
         
-        print(f"成功解析 {len(proxies)} 个SS节点")
+        print(f"成功解析 {len(ss_proxies)} 个SS节点")
+        print(f"成功解析 {len(vless_proxies)} 个VLESS节点")
+        
+        # 合并所有代理
+        all_proxies = ss_proxies + vless_proxies
         
         # 创建Mihomo配置
-        if proxies:
+        if all_proxies:
             config = {
-                'proxies': proxies,
+                'proxies': all_proxies,
                 'proxy-groups': [
                     {
                         'name': 'Auto',
                         'type': 'url-test',
-                        'proxies': [p['name'] for p in proxies],
+                        'proxies': [p['name'] for p in all_proxies],
                         'url': 'http://www.gstatic.com/generate_204',
                         'interval': 300
                     }
@@ -148,17 +218,17 @@ jobs:
             with open('mihomo_config.yaml', 'w', encoding='utf-8') as f:
                 yaml.dump(config, f, allow_unicode=True)
             
-            print("✅ 转换完成（只处理SS链接）")
+            print("✅ 转换完成（支持SS和VLESS）")
             
             # 显示一些示例节点名称
             print("\n示例节点名称:")
-            for i, proxy in enumerate(proxies[:5]):
-                print(f"  {i+1}. {proxy['name']}")
+            for i, proxy in enumerate(all_proxies[:5]):
+                print(f"  {i+1}. {proxy['name']} ({proxy['type']})")
         else:
-            print("❌ 没有解析出有效SS节点")
+            print("❌ 没有解析出有效节点")
         EOF
         
-    - name: 运行最终修复版转换脚本
+    - name: 运行支持VLESS的转换脚本
       run: python convert.py
         
     - name: 推送到wuya仓库
@@ -172,10 +242,10 @@ jobs:
         
         cp ../mihomo_config.yaml .
         git add mihomo_config.yaml
-        git commit -m "最终修复：只处理SS链接 $(date +'%Y-%m-%d %H:%M:%S')" || exit 0
+        git commit -m "支持VLESS协议 $(date +'%Y-%m-%d %H:%M:%S')" || exit 0
         git push
         
     - name: 显示成功信息
       run: |
-        echo "✅ 自动完成！只处理SS链接"
+        echo "✅ 自动完成！支持SS和VLESS协议"
         echo "订阅链接: https://raw.githubusercontent.com/ipx2003/wuya/main/mihomo_config.yaml"
