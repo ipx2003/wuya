@@ -127,6 +127,6 @@ jobs:
     - name: 输出Raw链接
       run: |
         echo "Mihomo配置Raw链接:"
-        echo "https://raw.githubusercontent.com/ipx2003/onskr/main/mihomo_config.yaml"
+        echo "https://raw.githubusercontent.com/ipx2003/wuya/main/mihomo_config.yaml"
         echo ""
         echo "请手动保存 mihomo_config.yaml 文件到wuya仓库"
