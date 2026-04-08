@@ -1,4 +1,4 @@
-name: 唯一节点名称修复版
+name: VLESS优化版自动转换
 
 on:
   schedule:
@@ -21,7 +21,7 @@ jobs:
     - name: 安装依赖
       run: pip install requests pyyaml
       
-    - name: 创建唯一名称修复脚本
+    - name: 创建VLESS优化脚本
       run: |
         cat > convert.py << 'EOF'
         import requests
@@ -31,37 +31,39 @@ jobs:
         
         def make_unique_name(name, existing_names, counter_dict):
             """确保节点名称唯一"""
-            if name not in existing_names:
-                existing_names.add(name)
-                counter_dict[name] = 1
-                return name
-            
-            # 名称已存在，添加序号
-            count = counter_dict.get(name, 1)
-            new_name = f"{name}_{count}"
-            while new_name in existing_names:
-                count += 1
+            try:
+                if name not in existing_names:
+                    existing_names.add(name)
+                    counter_dict[name] = 1
+                    return name
+                
+                count = counter_dict.get(name, 1)
                 new_name = f"{name}_{count}"
-            
-            counter_dict[name] = count + 1
-            existing_names.add(new_name)
-            return new_name
+                while new_name in existing_names:
+                    count += 1
+                    new_name = f"{name}_{count}"
+                
+                counter_dict[name] = count + 1
+                existing_names.add(new_name)
+                return new_name
+            except:
+                return name
         
         def parse_ss_url(ss_url, existing_names, counter_dict):
             """解析SS链接"""
-            ss_url = ss_url.strip()
-            if not ss_url.startswith('ss://'):
-                return None
-            
-            ss_url = ss_url[5:]
-            
-            remark = "SS_Node"
-            if '#' in ss_url:
-                url_part, remark = ss_url.split('#', 1)
-            else:
-                url_part = ss_url
-            
             try:
+                ss_url = ss_url.strip()
+                if not ss_url.startswith('ss://'):
+                    return None
+                
+                ss_url = ss_url[5:]
+                
+                remark = "SS_Node"
+                if '#' in ss_url:
+                    url_part, remark = ss_url.split('#', 1)
+                else:
+                    url_part = ss_url
+                
                 if '@' in url_part:
                     auth_part, server_part = url_part.split('@', 1)
                     
@@ -123,33 +125,35 @@ jobs:
                 }
                 
             except Exception as e:
-                print(f"SS解析失败 {ss_url}: {e}")
+                print(f"SS解析失败: {e}")
                 return None
         
         def parse_vless_url(vless_url, existing_names, counter_dict):
-            """解析VLESS链接 - 修复Mihomo格式"""
-            vless_url = vless_url.strip()
-            if not vless_url.startswith('vless://'):
-                return None
-            
-            vless_url = vless_url[8:]  # 移除vless://
-            
-            # 分离备注
-            remark = "VLESS_Node"
-            if '#' in vless_url:
-                url_part, remark = vless_url.split('#', 1)
-            else:
-                url_part = vless_url
-            
+            """解析VLESS链接 - 优化Mihomo格式"""
             try:
+                vless_url = vless_url.strip()
+                if not vless_url.startswith('vless://'):
+                    return None
+                
+                vless_url = vless_url[8:]
+                
+                # 分离备注
+                remark = "VLESS_Node"
+                if '#' in vless_url:
+                    url_part, remark = vless_url.split('#', 1)
+                else:
+                    url_part = vless_url
+                
                 if '@' in url_part:
                     uuid_part, server_part = url_part.split('@', 1)
                     
+                    # 分离查询参数
                     if '?' in server_part:
                         server_part, query_part = server_part.split('?', 1)
                     else:
                         query_part = ''
                     
+                    # 解析服务器和端口
                     if ':' in server_part:
                         host, port_str = server_part.split(':', 1)
                         try:
@@ -173,10 +177,7 @@ jobs:
                     # 确保名称唯一
                     unique_name = make_unique_name(decoded_remark.strip(), existing_names, counter_dict)
                     
-                    # 修复：tls应该是布尔值，不是字符串
-                    tls_enabled = query_params.get('security') == 'tls'
-                    
-                    # 构建VLESS配置（Mihomo格式）
+                    # 构建VLESS配置（Mihomo标准格式）
                     vless_config = {
                         'name': unique_name,
                         'type': 'vless',
@@ -184,7 +185,7 @@ jobs:
                         'port': port,
                         'uuid': uuid_part,
                         'network': query_params.get('type', 'tcp'),
-                        'tls': tls_enabled,  # 修复：使用布尔值
+                        'tls': query_params.get('security') == 'tls',
                         'udp': True
                     }
                     
@@ -193,18 +194,21 @@ jobs:
                         vless_config['servername'] = query_params['sni']
                     if 'flow' in query_params:
                         vless_config['flow'] = query_params['flow']
+                    
+                    # 处理allowInsecure
                     if query_params.get('allowInsecure') == '1':
                         vless_config['skip-cert-verify'] = True
                     
                     return vless_config
                 
             except Exception as e:
-                print(f"VLESS解析失败 {vless_url}: {e}")
+                print(f"VLESS解析失败: {e}")
                 return None
         
         # 获取订阅
         url = "https://raw.githubusercontent.com/ipx2003/onskr/main/proxies.txt"
-        response = requests.get(url)
+        response = requests.get(url, timeout=30)
+        response.raise_for_status()
         all_lines = [line.strip() for line in response.text.split('\n') if line.strip()]
         
         print(f"获取到 {len(all_lines)} 个链接")
@@ -226,6 +230,7 @@ jobs:
                 config = parse_vless_url(line, existing_names, name_counter)
                 if config:
                     vless_proxies.append(config)
+                    print(f"VLESS节点: {config['name']}")
             else:
                 print(f"跳过未知协议: {line[:50]}...")
         
@@ -257,20 +262,25 @@ jobs:
             with open('mihomo_config.yaml', 'w', encoding='utf-8') as f:
                 yaml.dump(config, f, allow_unicode=True)
             
-            print("✅ 转换完成（名称唯一性修复）")
-            print(f"共生成 {len(all_proxies)} 个唯一名称的节点")
+            print("✅ 转换完成（VLESS优化版）")
+            print(f"共生成 {len(all_proxies)} 个节点")
             
-            # 显示重复名称的处理情况
-            duplicate_names = [name for name, count in name_counter.items() if count > 1]
-            if duplicate_names:
-                print("\n重复名称处理:")
-                for name in duplicate_names[:5]:
-                    print(f"  {name} → {name}_1, {name}_2, ...")
+            # 显示VLESS节点详情
+            if vless_proxies:
+                print("\nVLESS节点详情:")
+                for vless in vless_proxies[:3]:
+                    print(f"  名称: {vless['name']}")
+                    print(f"  服务器: {vless['server']}:{vless['port']}")
+                    print(f"  TLS: {vless.get('tls', False)}")
+                    print(f"  网络: {vless.get('network', 'tcp')}")
+                    if 'servername' in vless:
+                        print(f"  SNI: {vless['servername']}")
+                    print()
         else:
             print("❌ 没有解析出有效节点")
         EOF
         
-    - name: 运行唯一名称修复脚本
+    - name: 运行VLESS优化脚本
       run: python convert.py
         
     - name: 推送到wuya仓库
@@ -284,10 +294,10 @@ jobs:
         
         cp ../mihomo_config.yaml .
         git add mihomo_config.yaml
-        git commit -m "修复节点名称唯一性 $(date +'%Y-%m-%d %H:%M:%S')" || exit 0
+        git commit -m "VLESS优化版 $(date +'%Y-%m-%d %H:%M:%S')" || exit 0
         git push
         
     - name: 显示成功信息
       run: |
-        echo "✅ 自动完成！节点名称唯一性已修复"
+        echo "✅ 自动完成！VLESS优化版"
         echo "订阅链接: https://raw.githubusercontent.com/ipx2003/wuya/main/mihomo_config.yaml"
