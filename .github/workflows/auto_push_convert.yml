@@ -21,8 +21,9 @@ jobs:
     - name: 安装依赖
       run: pip install requests pyyaml
       
-    - name: 获取订阅并转换
+    - name: 创建转换脚本
       run: |
+        cat > convert.py << 'EOF'
         import requests
         import yaml
         import base64
@@ -99,6 +100,10 @@ jobs:
             yaml.dump(config, f, allow_unicode=True)
         
         print(f"成功转换 {len(proxies)} 个节点")
+        EOF
+        
+    - name: 运行转换脚本
+      run: python convert.py
         
     - name: 推送到wuya仓库
       run: |
