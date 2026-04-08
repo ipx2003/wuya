@@ -23,14 +23,14 @@ jobs:
       
     - name: 获取订阅并转换
       run: |
-        # 获取订阅文件
-        curl -s https://raw.githubusercontent.com/ipx2003/onskr/main/proxies.txt -o proxies.txt
-        
-        # 创建转换脚本
-        cat > convert.py << 'EOF'
         import requests
         import yaml
         import base64
+        
+        # 获取订阅
+        url = "https://raw.githubusercontent.com/ipx2003/onskr/main/proxies.txt"
+        response = requests.get(url)
+        ss_urls = [line.strip() for line in response.text.split('\n') if line.strip()]
         
         def parse_ss(ss_url):
             try:
@@ -72,16 +72,11 @@ jobs:
             except:
                 return None
         
-        with open('proxies.txt', 'r') as f:
-            lines = f.readlines()
-        
         proxies = []
-        for line in lines:
-            line = line.strip()
-            if line:
-                config = parse_ss(line)
-                if config:
-                    proxies.append(config)
+        for ss_url in ss_urls:
+            config = parse_ss(ss_url)
+            if config:
+                proxies.append(config)
         
         config = {
             'proxies': proxies,
@@ -104,30 +99,24 @@ jobs:
             yaml.dump(config, f, allow_unicode=True)
         
         print(f"成功转换 {len(proxies)} 个节点")
-        EOF
         
-        python convert.py
-        
-    - name: 使用GitHub CLI推送
+    - name: 推送到wuya仓库
       run: |
-        # 设置GitHub CLI认证
-        echo "${{ secrets.PAT }}" | gh auth login --with-token
+        # 配置git
+        git config --global user.name "GitHub Actions Bot"
+        git config --global user.email "actions@github.com"
         
-        # 下载wuya仓库内容
-        gh repo clone ipx2003/wuya wuya-temp
-        cd wuya-temp
+        # 克隆wuya仓库（使用PAT认证）
+        git clone https://${{ secrets.PAT }}@github.com/ipx2003/wuya.git wuya-repo
+        cd wuya-repo
         
         # 复制配置文件
         cp ../mihomo_config.yaml .
         
-        # 提交更改
-        git config user.name "GitHub Actions"
-        git config user.email "actions@github.com"
+        # 提交并推送
         git add mihomo_config.yaml
         git commit -m "自动更新Mihomo配置 $(date +'%Y-%m-%d %H:%M:%S')" || exit 0
-        
-        # 推送到wuya仓库
-        git push origin main
+        git push
         
     - name: 显示成功信息
       run: |
