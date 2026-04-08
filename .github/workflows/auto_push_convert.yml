@@ -1,4 +1,4 @@
-name: 支持VLESS的自动转换
+name: Mihomo格式修复版
 
 on:
   schedule:
@@ -21,7 +21,7 @@ jobs:
     - name: 安装依赖
       run: pip install requests pyyaml
       
-    - name: 创建支持VLESS的转换脚本
+    - name: 创建Mihomo格式修复脚本
       run: |
         cat > convert.py << 'EOF'
         import requests
@@ -106,7 +106,7 @@ jobs:
                 return None
         
         def parse_vless_url(vless_url):
-            """解析VLESS链接"""
+            """解析VLESS链接 - 修复Mihomo格式"""
             vless_url = vless_url.strip()
             if not vless_url.startswith('vless://'):
                 return None
@@ -121,9 +121,7 @@ jobs:
                 url_part = vless_url
             
             try:
-                # 解析URL部分
                 if '@' in url_part:
-                    # 格式: uuid@host:port?query#remark
                     uuid_part, server_part = url_part.split('@', 1)
                     
                     if '?' in server_part:
@@ -151,17 +149,30 @@ jobs:
                     # 解码URL编码的名称
                     decoded_remark = unquote(remark)
                     
-                    return {
+                    # 修复：tls应该是布尔值，不是字符串
+                    tls_enabled = query_params.get('security') == 'tls'
+                    
+                    # 构建VLESS配置（Mihomo格式）
+                    vless_config = {
                         'name': decoded_remark.strip(),
                         'type': 'vless',
                         'server': host,
                         'port': port,
                         'uuid': uuid_part,
                         'network': query_params.get('type', 'tcp'),
-                        'tls': 'tls' if query_params.get('security') == 'tls' else 'none',
-                        'sni': query_params.get('sni', ''),
-                        'flow': query_params.get('flow', '')
+                        'tls': tls_enabled,  # 修复：使用布尔值
+                        'udp': True
                     }
+                    
+                    # 添加可选字段
+                    if 'sni' in query_params:
+                        vless_config['servername'] = query_params['sni']
+                    if 'flow' in query_params:
+                        vless_config['flow'] = query_params['flow']
+                    if query_params.get('allowInsecure') == '1':
+                        vless_config['skip-cert-verify'] = True
+                    
+                    return vless_config
                 
             except Exception as e:
                 print(f"VLESS解析失败 {vless_url}: {e}")
@@ -218,17 +229,19 @@ jobs:
             with open('mihomo_config.yaml', 'w', encoding='utf-8') as f:
                 yaml.dump(config, f, allow_unicode=True)
             
-            print("✅ 转换完成（支持SS和VLESS）")
+            print("✅ 转换完成（Mihomo格式修复）")
             
             # 显示一些示例节点名称
             print("\n示例节点名称:")
             for i, proxy in enumerate(all_proxies[:5]):
                 print(f"  {i+1}. {proxy['name']} ({proxy['type']})")
+                if proxy['type'] == 'vless':
+                    print(f"     TLS: {proxy.get('tls', False)}")
         else:
             print("❌ 没有解析出有效节点")
         EOF
         
-    - name: 运行支持VLESS的转换脚本
+    - name: 运行Mihomo修复脚本
       run: python convert.py
         
     - name: 推送到wuya仓库
@@ -242,10 +255,10 @@ jobs:
         
         cp ../mihomo_config.yaml .
         git add mihomo_config.yaml
-        git commit -m "支持VLESS协议 $(date +'%Y-%m-%d %H:%M:%S')" || exit 0
+        git commit -m "修复Mihomo格式 $(date +'%Y-%m-%d %H:%M:%S')" || exit 0
         git push
         
     - name: 显示成功信息
       run: |
-        echo "✅ 自动完成！支持SS和VLESS协议"
+        echo "✅ 自动完成！Mihomo格式已修复"
         echo "订阅链接: https://raw.githubusercontent.com/ipx2003/wuya/main/mihomo_config.yaml"
