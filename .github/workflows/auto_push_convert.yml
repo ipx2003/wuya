@@ -95,7 +95,7 @@ jobs:
                             if ':' in server_part:
                                 host, port_str = server_part.split(':', 1)
                                 port = int(port_str)
-                            if '': in auth_part:
+                            if ':' in auth_part:
                                 cipher, password = auth_part.split(':', 1)
                             else:
                                 cipher, password = 'aes-256-gcm', auth_part
