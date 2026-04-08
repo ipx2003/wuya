@@ -1,4 +1,4 @@
-name: 修复名称编码的自动转换
+name: 最终修复版自动转换
 
 on:
   schedule:
@@ -21,7 +21,7 @@ jobs:
     - name: 安装依赖
       run: pip install requests pyyaml
       
-    - name: 创建修复版转换脚本
+    - name: 创建最终修复版转换脚本
       run: |
         cat > convert.py << 'EOF'
         import requests
@@ -30,8 +30,10 @@ jobs:
         from urllib.parse import unquote
         
         def parse_ss_url(ss_url):
-            """修复名称编码的SS链接解析"""
+            """只解析SS链接，跳过VLESS等其他协议"""
             ss_url = ss_url.strip()
+            
+            # 跳过非SS链接
             if not ss_url.startswith('ss://'):
                 return None
             
@@ -102,15 +104,19 @@ jobs:
                 }
                 
             except Exception as e:
-                print(f"解析失败 {ss_url}: {e}")
+                print(f"SS解析失败 {ss_url}: {e}")
                 return None
         
         # 获取订阅
         url = "https://raw.githubusercontent.com/ipx2003/onskr/main/proxies.txt"
         response = requests.get(url)
-        ss_urls = [line.strip() for line in response.text.split('\n') if line.strip()]
+        all_lines = [line.strip() for line in response.text.split('\n') if line.strip()]
         
-        print(f"获取到 {len(ss_urls)} 个订阅链接")
+        print(f"获取到 {len(all_lines)} 个链接")
+        
+        # 只处理SS链接
+        ss_urls = [line for line in all_lines if line.startswith('ss://')]
+        print(f"其中 {len(ss_urls)} 个是SS链接")
         
         proxies = []
         for ss_url in ss_urls:
@@ -118,7 +124,7 @@ jobs:
             if config:
                 proxies.append(config)
         
-        print(f"成功解析 {len(proxies)} 个节点")
+        print(f"成功解析 {len(proxies)} 个SS节点")
         
         # 创建Mihomo配置
         if proxies:
@@ -142,17 +148,17 @@ jobs:
             with open('mihomo_config.yaml', 'w', encoding='utf-8') as f:
                 yaml.dump(config, f, allow_unicode=True)
             
-            print("✅ 转换完成（已修复名称编码）")
+            print("✅ 转换完成（只处理SS链接）")
             
             # 显示一些示例节点名称
             print("\n示例节点名称:")
             for i, proxy in enumerate(proxies[:5]):
                 print(f"  {i+1}. {proxy['name']}")
         else:
-            print("❌ 没有解析出有效节点")
+            print("❌ 没有解析出有效SS节点")
         EOF
         
-    - name: 运行修复版转换脚本
+    - name: 运行最终修复版转换脚本
       run: python convert.py
         
     - name: 推送到wuya仓库
@@ -166,10 +172,10 @@ jobs:
         
         cp ../mihomo_config.yaml .
         git add mihomo_config.yaml
-        git commit -m "修复名称编码的Mihomo配置 $(date +'%Y-%m-%d %H:%M:%S')" || exit 0
+        git commit -m "最终修复：只处理SS链接 $(date +'%Y-%m-%d %H:%M:%S')" || exit 0
         git push
         
     - name: 显示成功信息
       run: |
-        echo "✅ 自动完成！名称编码已修复"
+        echo "✅ 自动完成！只处理SS链接"
         echo "订阅链接: https://raw.githubusercontent.com/ipx2003/wuya/main/mihomo_config.yaml"
