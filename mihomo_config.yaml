@@ -570,7 +570,7 @@ proxies:
   type: vless
   udp: true
   uuid: 65b3ad9a-faef-4673-a3f7-92d833c080fe
-- name: 澳大利亚
+- name: 澳大利亚_1
   network: tcp
   port: 12316
   server: 149.33.34.115
@@ -590,7 +590,7 @@ proxies:
   type: vless
   udp: true
   uuid: 65b3ad9a-faef-4673-a3f7-92d833c080fe
-- name: 英国
+- name: 英国_1
   network: tcp
   port: 12316
   server: 38.180.200.170
@@ -600,7 +600,7 @@ proxies:
   type: vless
   udp: true
   uuid: 65b3ad9a-faef-4673-a3f7-92d833c080fe
-- name: 新加坡
+- name: 新加坡_1
   network: tcp
   port: 12316
   server: 38.180.190.83
@@ -704,10 +704,10 @@ proxy-groups:
   - 巴西
   - 比利时
   - 奥地利
-  - 澳大利亚
+  - 澳大利亚_1
   - 乌克兰
-  - 英国
-  - 新加坡
+  - 英国_1
+  - 新加坡_1
   - 马来西亚
   - 马来西亚02
   type: url-test
