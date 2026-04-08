@@ -300,302 +300,335 @@ proxies:
   server: 142.93.73.182
   type: ss
   udp: true
-- flow: ''
-  name: 🇭🇰香港01|高速|YouTube
+- name: 🇭🇰香港01|高速|YouTube
   network: tcp
   port: 12210
   server: 183.240.245.218
-  sni: 183.240.245.218
-  tls: tls
+  servername: 183.240.245.218
+  skip-cert-verify: true
+  tls: true
   type: vless
+  udp: true
   uuid: 65b3ad9a-faef-4673-a3f7-92d833c080fe
-- flow: ''
-  name: 🇭🇰香港02|高速|流媒体
+- name: 🇭🇰香港02|高速|流媒体
   network: tcp
   port: 12310
   server: 183.240.245.218
-  sni: 183.240.245.218
-  tls: tls
+  servername: 183.240.245.218
+  skip-cert-verify: true
+  tls: true
   type: vless
+  udp: true
   uuid: 65b3ad9a-faef-4673-a3f7-92d833c080fe
-- flow: ''
-  name: 🇭🇰香港03|高速|流媒体
+- name: 🇭🇰香港03|高速|流媒体
   network: tcp
   port: 12311
   server: 183.240.245.218
-  sni: 183.240.245.218
-  tls: tls
+  servername: 183.240.245.218
+  skip-cert-verify: true
+  tls: true
   type: vless
+  udp: true
   uuid: 65b3ad9a-faef-4673-a3f7-92d833c080fe
-- flow: ''
-  name: 🇨🇳台湾01|高速|流媒体
+- name: 🇨🇳台湾01|高速|流媒体
   network: tcp
   port: 12315
   server: 59.125.53.1
-  sni: 220.130.75.169
-  tls: tls
+  servername: 220.130.75.169
+  skip-cert-verify: true
+  tls: true
   type: vless
+  udp: true
   uuid: 65b3ad9a-faef-4673-a3f7-92d833c080fe
-- flow: ''
-  name: 🇨🇳台湾02|高速|流媒体
+- name: 🇨🇳台湾02|高速|流媒体
   network: tcp
   port: 12316
   server: 59.125.53.1
-  sni: 220.130.75.170
-  tls: tls
+  servername: 220.130.75.170
+  skip-cert-verify: true
+  tls: true
   type: vless
+  udp: true
   uuid: 65b3ad9a-faef-4673-a3f7-92d833c080fe
-- flow: ''
-  name: 🇨🇳台湾03|高速|流媒体
+- name: 🇨🇳台湾03|高速|流媒体
   network: tcp
   port: 12317
   server: 59.125.53.1
-  sni: 220.130.75.171
-  tls: tls
+  servername: 220.130.75.171
+  skip-cert-verify: true
+  tls: true
   type: vless
+  udp: true
   uuid: 65b3ad9a-faef-4673-a3f7-92d833c080fe
-- flow: ''
-  name: 🇨🇳台湾04|高速|流媒体
+- name: 🇨🇳台湾04|高速|流媒体
   network: tcp
   port: 12318
   server: 59.125.53.2
-  sni: 220.130.75.172
-  tls: tls
+  servername: 220.130.75.172
+  skip-cert-verify: true
+  tls: true
   type: vless
+  udp: true
   uuid: 65b3ad9a-faef-4673-a3f7-92d833c080fe
-- flow: ''
-  name: 🇨🇳台湾05|高速|流媒体
+- name: 🇨🇳台湾05|高速|流媒体
   network: tcp
   port: 12319
   server: 59.125.53.2
-  sni: 220.130.75.173
-  tls: tls
+  servername: 220.130.75.173
+  skip-cert-verify: true
+  tls: true
   type: vless
+  udp: true
   uuid: 65b3ad9a-faef-4673-a3f7-92d833c080fe
-- flow: ''
-  name: 🇨🇳台湾06|高速|流媒体
+- name: 🇨🇳台湾06|高速|流媒体
   network: tcp
   port: 12316
   server: 59.125.53.2
-  sni: 220.130.75.174
-  tls: tls
+  servername: 220.130.75.174
+  skip-cert-verify: true
+  tls: true
   type: vless
+  udp: true
   uuid: 65b3ad9a-faef-4673-a3f7-92d833c080fe
-- flow: ''
-  name: 🇺🇸美国01|高速|流媒体
+- name: 🇺🇸美国01|高速|流媒体
   network: tcp
   port: 12312
   server: 183.240.245.218
-  sni: 183.240.245.218
-  tls: tls
+  servername: 183.240.245.218
+  skip-cert-verify: true
+  tls: true
   type: vless
+  udp: true
   uuid: 65b3ad9a-faef-4673-a3f7-92d833c080fe
-- flow: ''
-  name: 🇺🇸美国02|高速|流媒体
+- name: 🇺🇸美国02|高速|流媒体
   network: tcp
   port: 12313
   server: 183.240.245.218
-  sni: 183.240.245.218
-  tls: tls
+  servername: 183.240.245.218
+  skip-cert-verify: true
+  tls: true
   type: vless
+  udp: true
   uuid: 65b3ad9a-faef-4673-a3f7-92d833c080fe
-- flow: ''
-  name: 🇺🇸美国03|高速|流媒体
+- name: 🇺🇸美国03|高速|流媒体
   network: tcp
   port: 12314
   server: 183.240.245.218
-  sni: 183.240.245.218
-  tls: tls
+  servername: 183.240.245.218
+  skip-cert-verify: true
+  tls: true
   type: vless
+  udp: true
   uuid: 65b3ad9a-faef-4673-a3f7-92d833c080fe
-- flow: ''
-  name: 🇺🇸美国04|高速|流媒体
+- name: 🇺🇸美国04|高速|流媒体
   network: tcp
   port: 12315
   server: 183.240.245.218
-  sni: 183.240.245.218
-  tls: tls
+  servername: 183.240.245.218
+  skip-cert-verify: true
+  tls: true
   type: vless
+  udp: true
   uuid: 65b3ad9a-faef-4673-a3f7-92d833c080fe
-- flow: ''
-  name: 🇯🇵日本01|高速|流媒体
+- name: 🇯🇵日本01|高速|流媒体
   network: tcp
   port: 12316
   server: 103.140.136.123
-  sni: 103.140.136.123
-  tls: tls
+  servername: 103.140.136.123
+  skip-cert-verify: true
+  tls: true
   type: vless
+  udp: true
   uuid: 65b3ad9a-faef-4673-a3f7-92d833c080fe
-- flow: ''
-  name: 🇯🇵日本02|高速|流媒体
+- name: 🇯🇵日本02|高速|流媒体
   network: tcp
   port: 12316
   server: 103.140.136.123
-  sni: 103.140.136.123
-  tls: tls
+  servername: 103.140.136.123
+  skip-cert-verify: true
+  tls: true
   type: vless
+  udp: true
   uuid: 65b3ad9a-faef-4673-a3f7-92d833c080fe
-- flow: ''
-  name: 🇯🇵日本03|高速|流媒体
+- name: 🇯🇵日本03|高速|流媒体
   network: tcp
   port: 12316
   server: 103.140.136.123
-  sni: 103.140.136.123
-  tls: tls
+  servername: 103.140.136.123
+  skip-cert-verify: true
+  tls: true
   type: vless
+  udp: true
   uuid: 65b3ad9a-faef-4673-a3f7-92d833c080fe
-- flow: ''
-  name: 🇩🇰丹麦
+- name: 🇩🇰丹麦
   network: tcp
   port: 12316
   server: 38.180.72.100
-  sni: 38.180.72.100
-  tls: tls
+  servername: 38.180.72.100
+  skip-cert-verify: true
+  tls: true
   type: vless
+  udp: true
   uuid: 65b3ad9a-faef-4673-a3f7-92d833c080fe
-- flow: ''
-  name: 🇳🇱荷兰
+- name: 🇳🇱荷兰
   network: tcp
   port: 12316
   server: 176.98.40.19
-  sni: 176.98.40.19
-  tls: tls
+  servername: 176.98.40.19
+  skip-cert-verify: true
+  tls: true
   type: vless
+  udp: true
   uuid: 65b3ad9a-faef-4673-a3f7-92d833c080fe
-- flow: ''
-  name: 🇹🇷土耳其
+- name: 🇹🇷土耳其
   network: tcp
   port: 12316
   server: 38.180.112.202
-  sni: 38.180.112.202
-  tls: tls
+  servername: 38.180.112.202
+  skip-cert-verify: true
+  tls: true
   type: vless
+  udp: true
   uuid: 65b3ad9a-faef-4673-a3f7-92d833c080fe
-- flow: ''
-  name: 🇹🇭泰国
+- name: 🇹🇭泰国
   network: tcp
   port: 12316
   server: 38.244.151.47
-  sni: 38.244.151.47
-  tls: tls
+  servername: 38.244.151.47
+  skip-cert-verify: true
+  tls: true
   type: vless
+  udp: true
   uuid: 65b3ad9a-faef-4673-a3f7-92d833c080fe
-- flow: ''
-  name: 🇰🇿哈萨克斯坦
+- name: 🇰🇿哈萨克斯坦
   network: tcp
   port: 12316
   server: 188.116.20.122
-  sni: 188.116.20.122
-  tls: tls
+  servername: 188.116.20.122
+  skip-cert-verify: true
+  tls: true
   type: vless
+  udp: true
   uuid: 65b3ad9a-faef-4673-a3f7-92d833c080fe
-- flow: ''
-  name: 🇮🇩印度尼西亚
+- name: 🇮🇩印度尼西亚
   network: tcp
   port: 12316
   server: 38.244.147.25
-  sni: 38.244.147.25
-  tls: tls
+  servername: 38.244.147.25
+  skip-cert-verify: true
+  tls: true
   type: vless
+  udp: true
   uuid: 65b3ad9a-faef-4673-a3f7-92d833c080fe
-- flow: ''
-  name: 德国
+- name: 德国
   network: tcp
   port: 12316
   server: 38.244.214.250
-  sni: 38.244.214.250
-  tls: tls
+  servername: 38.244.214.250
+  skip-cert-verify: true
+  tls: true
   type: vless
+  udp: true
   uuid: 65b3ad9a-faef-4673-a3f7-92d833c080fe
-- flow: ''
-  name: 保加利亚
+- name: 保加利亚
   network: tcp
   port: 12316
   server: 38.244.133.105
-  sni: 38.244.133.105
-  tls: tls
+  servername: 38.244.133.105
+  skip-cert-verify: true
+  tls: true
   type: vless
+  udp: true
   uuid: 65b3ad9a-faef-4673-a3f7-92d833c080fe
-- flow: ''
-  name: 巴西
+- name: 巴西
   network: tcp
   port: 12316
   server: 149.33.22.84
-  sni: 149.33.22.84
-  tls: tls
+  servername: 149.33.22.84
+  skip-cert-verify: true
+  tls: true
   type: vless
+  udp: true
   uuid: 65b3ad9a-faef-4673-a3f7-92d833c080fe
-- flow: ''
-  name: 比利时
+- name: 比利时
   network: tcp
   port: 12316
   server: 149.33.25.123
-  sni: 149.33.25.123
-  tls: tls
+  servername: 149.33.25.123
+  skip-cert-verify: true
+  tls: true
   type: vless
+  udp: true
   uuid: 65b3ad9a-faef-4673-a3f7-92d833c080fe
-- flow: ''
-  name: 奥地利
+- name: 奥地利
   network: tcp
   port: 12316
   server: 149.33.11.141
-  sni: 149.33.11.141
-  tls: tls
+  servername: 149.33.11.141
+  skip-cert-verify: true
+  tls: true
   type: vless
+  udp: true
   uuid: 65b3ad9a-faef-4673-a3f7-92d833c080fe
-- flow: ''
-  name: 澳大利亚
+- name: 澳大利亚
   network: tcp
   port: 12316
   server: 149.33.34.115
-  sni: 149.33.34.115
-  tls: tls
+  servername: 149.33.34.115
+  skip-cert-verify: true
+  tls: true
   type: vless
+  udp: true
   uuid: 65b3ad9a-faef-4673-a3f7-92d833c080fe
-- flow: ''
-  name: 乌克兰
+- name: 乌克兰
   network: tcp
   port: 12316
   server: 130.0.238.62
-  sni: 130.0.238.62
-  tls: tls
+  servername: 130.0.238.62
+  skip-cert-verify: true
+  tls: true
   type: vless
+  udp: true
   uuid: 65b3ad9a-faef-4673-a3f7-92d833c080fe
-- flow: ''
-  name: 英国
+- name: 英国
   network: tcp
   port: 12316
   server: 38.180.200.170
-  sni: 38.180.200.170
-  tls: tls
+  servername: 38.180.200.170
+  skip-cert-verify: true
+  tls: true
   type: vless
+  udp: true
   uuid: 65b3ad9a-faef-4673-a3f7-92d833c080fe
-- flow: ''
-  name: 新加坡
+- name: 新加坡
   network: tcp
   port: 12316
   server: 38.180.190.83
-  sni: 38.180.190.83
-  tls: tls
+  servername: 38.180.190.83
+  skip-cert-verify: true
+  tls: true
   type: vless
+  udp: true
   uuid: 65b3ad9a-faef-4673-a3f7-92d833c080fe
-- flow: ''
-  name: 马来西亚
+- name: 马来西亚
   network: tcp
   port: 12316
   server: 149.33.30.209
-  sni: 149.33.30.209
-  tls: tls
+  servername: 149.33.30.209
+  skip-cert-verify: true
+  tls: true
   type: vless
+  udp: true
   uuid: 65b3ad9a-faef-4673-a3f7-92d833c080fe
-- flow: ''
-  name: 马来西亚02
+- name: 马来西亚02
   network: tcp
   port: 12316
   server: 149.33.30.209
-  sni: 149.33.30.209
-  tls: tls
+  servername: 149.33.30.209
+  skip-cert-verify: true
+  tls: true
   type: vless
+  udp: true
   uuid: 65b3ad9a-faef-4673-a3f7-92d833c080fe
 proxy-groups:
 - interval: 300
