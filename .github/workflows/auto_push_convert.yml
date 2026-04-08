@@ -1,4 +1,4 @@
-name: VLESS最终修复版
+name: 精确匹配版自动转换
 
 on:
   schedule:
@@ -21,7 +21,7 @@ jobs:
     - name: 安装依赖
       run: pip install requests pyyaml
       
-    - name: 创建VLESS最终修复脚本
+    - name: 创建精确匹配脚本
       run: |
         cat > convert.py << 'EOF'
         import requests
@@ -64,7 +64,7 @@ jobs:
                 else:
                     url_part = ss_url
                 
-                if '@' in url_part:
+                if '@' in url极速 in url_part:
                     auth_part, server_part = url_part.split('@', 1)
                     
                     if ':' in server_part:
@@ -74,7 +74,7 @@ jobs:
                         except:
                             port = 8388
                     else:
-                        host, port = server_part, 8388
+                        host, port = server_part极速 8388
                     
                     if ':' in auth_part:
                         cipher, password = auth_part.split(':', 1)
@@ -129,7 +129,7 @@ jobs:
                 return None
         
         def parse_vless_url(vless_url, existing_names, counter_dict):
-            """解析VLESS链接 - 最终修复版"""
+            """解析VLESS链接 - 精确匹配工作配置"""
             try:
                 vless_url = vless_url.strip()
                 if not vless_url.startswith('vless://'):
@@ -177,7 +177,7 @@ jobs:
                     # 确保名称唯一
                     unique_name = make_unique_name(decoded_remark.strip(), existing_names, counter_dict)
                     
-                    # 构建VLESS配置（修复SNI等问题）
+                    # 构建VLESS配置（精确匹配工作配置）
                     vless_config = {
                         'name': unique_name,
                         'type': 'vless',
@@ -186,19 +186,17 @@ jobs:
                         'uuid': uuid_part,
                         'network': query_params.get('type', 'tcp'),
                         'tls': query_params.get('security') == 'tls',
+                        'skip-cert-verify': query_params.get('allowInsecure') == '1',
                         'udp': True
                     }
                     
-                    # 修复SNI问题：只有域名时才设置servername
+                    # 精确匹配：总是设置servername，即使它是IP地址
                     sni_value = query_params.get('sni', '')
-                    if sni_value and '.' in sni_value and not sni_value.replace('.', '').isdigit():
+                    if sni_value:
                         vless_config['servername'] = sni_value
-                    
-                    # 修复安全性：默认不跳过证书验证
-                    if query_params.get('allowInsecure') == '1':
-                        vless_config['skip-cert-verify'] = True
                     else:
-                        vless_config['skip-cert-verify'] = False
+                        # 如果没有sni参数，使用服务器IP作为servername
+                        vless_config['servername'] = host
                     
                     # 添加flow参数
                     if 'flow' in query_params:
@@ -214,7 +212,7 @@ jobs:
         url = "https://raw.githubusercontent.com/ipx2003/onskr/main/proxies.txt"
         response = requests.get(url, timeout=30)
         response.raise_for_status()
-        all_lines = [line.strip() for line in response.text.split('\n') if line.strip()]
+        all_lines = [极速.strip() for line in response.text.split('\n') if line.strip()]
         
         print(f"获取到 {len(all_lines)} 个链接")
         
@@ -236,29 +234,15 @@ jobs:
                 if config:
                     vless_proxies.append(config)
                     print(f"VLESS节点: {config['name']}")
-                    print(f"  UUID: {config['uuid']}")
+                    print(f"  Server: {config['server']}:{config['port']}")
                     print(f"  TLS: {config.get('tls', False)}")
-                    if 'servername' in config:
-                        print(f"  SNI: {config['servername']}")
-                    print(f"  跳过证书验证: {config.get('skip-cert-verify', False)}")
+                    print(f"  SNI: {config.get('servername', 'None')}")
+                    print(f"  Skip-cert-verify: {config.get('skip-cert-verify', False)}")
             else:
                 print(f"跳过未知协议: {line[:50]}...")
         
         print(f"成功解析 {len(ss_proxies)} 个SS节点")
         print(f"成功解析 {len(vless_proxies)} 个VLESS节点")
-        
-        # 检查UUID重复问题
-        uuid_set = set()
-        duplicate_uuids = set()
-        for vless in vless_proxies:
-            if vless['uuid'] in uuid_set:
-                duplicate_uuids.add(vless['uuid'])
-            uuid_set.add(vless['uuid'])
-        
-        if duplicate_uuids:
-            print(f"⚠️  发现 {len(duplicate_uuids)} 个重复UUID")
-            for uuid in list(duplicate_uuids)[:3]:
-                print(f"  重复UUID: {uuid}")
         
         # 合并所有代理
         all_proxies = ss_proxies + vless_proxies
@@ -285,14 +269,14 @@ jobs:
             with open('mihomo_config.yaml', 'w', encoding='utf-8') as f:
                 yaml.dump(config, f, allow_unicode=True)
             
-            print("✅ 转换完成（VLESS最终修复版）")
+            print("✅ 转换完成（精确匹配版）")
             print(f"共生成 {len(all_proxies)} 个节点")
             
         else:
             print("❌ 没有解析出有效节点")
         EOF
         
-    - name: 运行最终修复脚本
+    - name: 运行精确匹配脚本
       run: python convert.py
         
     - name: 推送到wuya仓库
@@ -300,16 +284,16 @@ jobs:
         git config --global user.name "GitHub Actions Bot"
         git config --global user.email "actions@github.com"
         
-        REPO_URL="https://${{ secrets.PAT }}@github.com/ipx2003/wuya.git"
+        REPO_URL="https://${{ secrets.PAT }}@极速ithub.com/ipx2003/wuya.git"
         git clone $REPO_URL wuya-repo
         cd wuya-repo
         
         cp ../mihomo_config.yaml .
         git add mihomo_config.yaml
-        git commit -m "VLESS最终修复 $(date +'%Y-%m-%d %H:%M:%S')" || exit 0
+        git commit -m "精确匹配版 $(date +'%Y-%m-%d %H:%M:%S')" || exit 0
         git push
         
     - name: 显示成功信息
       run: |
-        echo "✅ 自动完成！VLESS最终修复版"
+        echo "✅ 自动完成！精确匹配版"
         echo "订阅链接: https://raw.githubusercontent.com/ipx2003/wuya/main/mihomo_config.yaml"
