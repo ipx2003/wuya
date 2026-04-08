@@ -1,3 +1,19 @@
+allow-lan: true
+dns:
+  enable: true
+  fallback:
+  - 8.8.8.8
+  - 8.8.4.4
+  - 极速.1.1.1
+  - tls://1.0.0.1:853
+  - 极速://dns.google:853
+  nameserver:
+  - 119.29.29.29
+  - 223.5.5.5
+external-controller: :9090
+log-level: info
+mode: Rule
+port: 7890
 proxies:
 - cipher: aes-256-gcm
   name: 美国
@@ -304,7 +320,9 @@ proxies:
   network: tcp
   port: 12210
   server: 183.240.245.218
-  skip-cert-verify: true
+  servername: 183.240.245.218
+  skip-cert-verify: false
+  tfo: false
   tls: true
   type: vless
   udp: true
@@ -313,7 +331,9 @@ proxies:
   network: tcp
   port: 12310
   server: 183.240.245.218
-  skip-cert-verify: true
+  servername: 183.240.245.218
+  skip-cert-verify: false
+  tfo: false
   tls: true
   type: vless
   udp: true
@@ -322,7 +342,9 @@ proxies:
   network: tcp
   port: 12311
   server: 183.240.245.218
-  skip-cert-verify: true
+  servername: 183.240.245.218
+  skip-cert-verify: false
+  tfo: false
   tls: true
   type: vless
   udp: true
@@ -331,7 +353,9 @@ proxies:
   network: tcp
   port: 12315
   server: 59.125.53.1
-  skip-cert-verify: true
+  servername: 59.125.53.1
+  skip-cert-verify: false
+  tfo: false
   tls: true
   type: vless
   udp: true
@@ -340,7 +364,9 @@ proxies:
   network: tcp
   port: 12316
   server: 59.125.53.1
-  skip-cert-verify: true
+  servername: 59.125.53.1
+  skip-cert-verify: false
+  tfo: false
   tls: true
   type: vless
   udp: true
@@ -349,7 +375,9 @@ proxies:
   network: tcp
   port: 12317
   server: 59.125.53.1
-  skip-cert-verify: true
+  servername: 59.125.53.1
+  skip-cert-verify: false
+  tfo: false
   tls: true
   type: vless
   udp: true
@@ -358,7 +386,9 @@ proxies:
   network: tcp
   port: 12318
   server: 59.125.53.2
-  skip-cert-verify: true
+  servername: 59.125.53.2
+  skip-cert-verify: false
+  tfo: false
   tls: true
   type: vless
   udp: true
@@ -367,7 +397,9 @@ proxies:
   network: tcp
   port: 12319
   server: 59.125.53.2
-  skip-cert-verify: true
+  servername: 59.125.53.2
+  skip-cert-verify: false
+  tfo: false
   tls: true
   type: vless
   udp: true
@@ -376,7 +408,9 @@ proxies:
   network: tcp
   port: 12316
   server: 59.125.53.2
-  skip-cert-verify: true
+  servername: 59.125.53.2
+  skip-cert-verify: false
+  tfo: false
   tls: true
   type: vless
   udp: true
@@ -385,7 +419,9 @@ proxies:
   network: tcp
   port: 12312
   server: 183.240.245.218
-  skip-cert-verify: true
+  servername: 183.240.245.218
+  skip-cert-verify: false
+  tfo: false
   tls: true
   type: vless
   udp: true
@@ -394,7 +430,9 @@ proxies:
   network: tcp
   port: 12313
   server: 183.240.245.218
-  skip-cert-verify: true
+  servername: 183.240.245.218
+  skip-cert-verify: false
+  tfo: false
   tls: true
   type: vless
   udp: true
@@ -403,7 +441,9 @@ proxies:
   network: tcp
   port: 12314
   server: 183.240.245.218
-  skip-cert-verify: true
+  servername: 183.240.245.218
+  skip-cert-verify: false
+  tfo: false
   tls: true
   type: vless
   udp: true
@@ -412,7 +452,9 @@ proxies:
   network: tcp
   port: 12315
   server: 183.240.245.218
-  skip-cert-verify: true
+  servername: 183.240.245.218
+  skip-cert-verify: false
+  tfo: false
   tls: true
   type: vless
   udp: true
@@ -421,7 +463,9 @@ proxies:
   network: tcp
   port: 12316
   server: 103.140.136.123
-  skip-cert-verify: true
+  servername: 103.140.136.123
+  skip-cert-verify: false
+  tfo: false
   tls: true
   type: vless
   udp: true
@@ -430,7 +474,9 @@ proxies:
   network: tcp
   port: 12316
   server: 103.140.136.123
-  skip-cert-verify: true
+  servername: 103.140.136.123
+  skip-cert-verify: false
+  tfo: false
   tls: true
   type: vless
   udp: true
@@ -439,7 +485,9 @@ proxies:
   network: tcp
   port: 12316
   server: 103.140.136.123
-  skip-cert-verify: true
+  servername: 103.140.136.123
+  skip-cert-verify: false
+  tfo: false
   tls: true
   type: vless
   udp: true
@@ -448,7 +496,9 @@ proxies:
   network: tcp
   port: 12316
   server: 38.180.72.100
-  skip-cert-verify: true
+  servername: 38.180.72.100
+  skip-cert-verify: false
+  tfo: false
   tls: true
   type: vless
   udp: true
@@ -457,7 +507,9 @@ proxies:
   network: tcp
   port: 12316
   server: 176.98.40.19
-  skip-cert-verify: true
+  servername: 176.98.40.19
+  skip-cert-verify: false
+  tfo: false
   tls: true
   type: vless
   udp: true
@@ -466,7 +518,9 @@ proxies:
   network: tcp
   port: 12316
   server: 38.180.112.202
-  skip-cert-verify: true
+  servername: 38.180.112.202
+  skip-cert-verify: false
+  tfo: false
   tls: true
   type: vless
   udp: true
@@ -475,7 +529,9 @@ proxies:
   network: tcp
   port: 12316
   server: 38.244.151.47
-  skip-cert-verify: true
+  servername: 38.244.151.47
+  skip-cert-verify: false
+  tfo: false
   tls: true
   type: vless
   udp: true
@@ -484,7 +540,9 @@ proxies:
   network: tcp
   port: 12316
   server: 188.116.20.122
-  skip-cert-verify: true
+  servername: 188.116.20.122
+  skip-cert-verify: false
+  tfo: false
   tls: true
   type: vless
   udp: true
@@ -493,7 +551,9 @@ proxies:
   network: tcp
   port: 12316
   server: 38.244.147.25
-  skip-cert-verify: true
+  servername: 38.244.147.25
+  skip-cert-verify: false
+  tfo: false
   tls: true
   type: vless
   udp: true
@@ -502,7 +562,9 @@ proxies:
   network: tcp
   port: 12316
   server: 38.244.214.250
-  skip-cert-verify: true
+  servername: 38.244.214.250
+  skip-cert-verify: false
+  tfo: false
   tls: true
   type: vless
   udp: true
@@ -511,7 +573,9 @@ proxies:
   network: tcp
   port: 12316
   server: 38.244.133.105
-  skip-cert-verify: true
+  servername: 38.244.133.105
+  skip-cert-verify: false
+  tfo: false
   tls: true
   type: vless
   udp: true
@@ -520,7 +584,9 @@ proxies:
   network: tcp
   port: 12316
   server: 149.33.22.84
-  skip-cert-verify: true
+  servername: 149.33.22.84
+  skip-cert-verify: false
+  tfo: false
   tls: true
   type: vless
   udp: true
@@ -529,7 +595,9 @@ proxies:
   network: tcp
   port: 12316
   server: 149.33.25.123
-  skip-cert-verify: true
+  servername: 149.33.25.123
+  skip-cert-verify: false
+  tfo: false
   tls: true
   type: vless
   udp: true
@@ -538,7 +606,9 @@ proxies:
   network: tcp
   port: 12316
   server: 149.33.11.141
-  skip-cert-verify: true
+  servername: 149.33.11.141
+  skip-cert-verify: false
+  tfo: false
   tls: true
   type: vless
   udp: true
@@ -547,7 +617,9 @@ proxies:
   network: tcp
   port: 12316
   server: 149.33.34.115
-  skip-cert-verify: true
+  servername: 149.33.34.115
+  skip-cert-verify: false
+  tfo: false
   tls: true
   type: vless
   udp: true
@@ -556,7 +628,9 @@ proxies:
   network: tcp
   port: 12316
   server: 130.0.238.62
-  skip-cert-verify: true
+  servername: 130.0.238.62
+  skip-cert-verify: false
+  tfo: false
   tls: true
   type: vless
   udp: true
@@ -565,7 +639,9 @@ proxies:
   network: tcp
   port: 12316
   server: 38.180.200.170
-  skip-cert-verify: true
+  servername: 38.180.200.170
+  skip-cert-verify: false
+  tfo: false
   tls: true
   type: vless
   udp: true
@@ -574,7 +650,9 @@ proxies:
   network: tcp
   port: 12316
   server: 38.180.190.83
-  skip-cert-verify: true
+  servername: 38.180.190.83
+  skip-cert-verify: false
+  tfo: false
   tls: true
   type: vless
   udp: true
@@ -583,7 +661,9 @@ proxies:
   network: tcp
   port: 12316
   server: 149.33.30.209
-  skip-cert-verify: true
+  servername: 149.33.30.209
+  skip-cert-verify: false
+  tfo: false
   tls: true
   type: vless
   udp: true
@@ -592,14 +672,15 @@ proxies:
   network: tcp
   port: 12316
   server: 149.33.30.209
-  skip-cert-verify: true
+  servername: 149.33.30.209
+  skip-cert-verify: false
+  tfo: false
   tls: true
   type: vless
   udp: true
   uuid: 65b3ad9a-faef-4673-a3f7-92d833c080fe
 proxy-groups:
-- interval: 300
-  name: Auto
+- name: 🚀 节点选择
   proxies:
   - 美国
   - 新加坡
@@ -677,8 +758,9 @@ proxy-groups:
   - 新加坡_1
   - 马来西亚
   - 马来西亚02
-  type: url-test
-  url: http://www.gstatic.com/generate_204
+  - DIRECT
+  type: select
 rules:
 - GEOIP,CN,DIRECT
-- MATCH,Auto
+- MATCH,🚀 节点选择
+socks-port: 7891
