@@ -304,7 +304,6 @@ proxies:
   network: tcp
   port: 12210
   server: 183.240.245.218
-  servername: 183.240.245.218
   skip-cert-verify: true
   tls: true
   type: vless
@@ -314,7 +313,6 @@ proxies:
   network: tcp
   port: 12310
   server: 183.240.245.218
-  servername: 183.240.245.218
   skip-cert-verify: true
   tls: true
   type: vless
@@ -324,7 +322,6 @@ proxies:
   network: tcp
   port: 12311
   server: 183.240.245.218
-  servername: 183.240.245.218
   skip-cert-verify: true
   tls: true
   type: vless
@@ -334,7 +331,6 @@ proxies:
   network: tcp
   port: 12315
   server: 59.125.53.1
-  servername: 220.130.75.169
   skip-cert-verify: true
   tls: true
   type: vless
@@ -344,7 +340,6 @@ proxies:
   network: tcp
   port: 12316
   server: 59.125.53.1
-  servername: 220.130.75.170
   skip-cert-verify: true
   tls: true
   type: vless
@@ -354,7 +349,6 @@ proxies:
   network: tcp
   port: 12317
   server: 59.125.53.1
-  servername: 220.130.75.171
   skip-cert-verify: true
   tls: true
   type: vless
@@ -364,7 +358,6 @@ proxies:
   network: tcp
   port: 12318
   server: 59.125.53.2
-  servername: 220.130.75.172
   skip-cert-verify: true
   tls: true
   type: vless
@@ -374,7 +367,6 @@ proxies:
   network: tcp
   port: 12319
   server: 59.125.53.2
-  servername: 220.130.75.173
   skip-cert-verify: true
   tls: true
   type: vless
@@ -384,7 +376,6 @@ proxies:
   network: tcp
   port: 12316
   server: 59.125.53.2
-  servername: 220.130.75.174
   skip-cert-verify: true
   tls: true
   type: vless
@@ -394,7 +385,6 @@ proxies:
   network: tcp
   port: 12312
   server: 183.240.245.218
-  servername: 183.240.245.218
   skip-cert-verify: true
   tls: true
   type: vless
@@ -404,7 +394,6 @@ proxies:
   network: tcp
   port: 12313
   server: 183.240.245.218
-  servername: 183.240.245.218
   skip-cert-verify: true
   tls: true
   type: vless
@@ -414,7 +403,6 @@ proxies:
   network: tcp
   port: 12314
   server: 183.240.245.218
-  servername: 183.240.245.218
   skip-cert-verify: true
   tls: true
   type: vless
@@ -424,7 +412,6 @@ proxies:
   network: tcp
   port: 12315
   server: 183.240.245.218
-  servername: 183.240.245.218
   skip-cert-verify: true
   tls: true
   type: vless
@@ -434,7 +421,6 @@ proxies:
   network: tcp
   port: 12316
   server: 103.140.136.123
-  servername: 103.140.136.123
   skip-cert-verify: true
   tls: true
   type: vless
@@ -444,7 +430,6 @@ proxies:
   network: tcp
   port: 12316
   server: 103.140.136.123
-  servername: 103.140.136.123
   skip-cert-verify: true
   tls: true
   type: vless
@@ -454,7 +439,6 @@ proxies:
   network: tcp
   port: 12316
   server: 103.140.136.123
-  servername: 103.140.136.123
   skip-cert-verify: true
   tls: true
   type: vless
@@ -464,7 +448,6 @@ proxies:
   network: tcp
   port: 12316
   server: 38.180.72.100
-  servername: 38.180.72.100
   skip-cert-verify: true
   tls: true
   type: vless
@@ -474,7 +457,6 @@ proxies:
   network: tcp
   port: 12316
   server: 176.98.40.19
-  servername: 176.98.40.19
   skip-cert-verify: true
   tls: true
   type: vless
@@ -484,7 +466,6 @@ proxies:
   network: tcp
   port: 12316
   server: 38.180.112.202
-  servername: 38.180.112.202
   skip-cert-verify: true
   tls: true
   type: vless
@@ -494,7 +475,6 @@ proxies:
   network: tcp
   port: 12316
   server: 38.244.151.47
-  servername: 38.244.151.47
   skip-cert-verify: true
   tls: true
   type: vless
@@ -504,7 +484,6 @@ proxies:
   network: tcp
   port: 12316
   server: 188.116.20.122
-  servername: 188.116.20.122
   skip-cert-verify: true
   tls: true
   type: vless
@@ -514,7 +493,6 @@ proxies:
   network: tcp
   port: 12316
   server: 38.244.147.25
-  servername: 38.244.147.25
   skip-cert-verify: true
   tls: true
   type: vless
@@ -524,7 +502,6 @@ proxies:
   network: tcp
   port: 12316
   server: 38.244.214.250
-  servername: 38.244.214.250
   skip-cert-verify: true
   tls: true
   type: vless
@@ -534,7 +511,6 @@ proxies:
   network: tcp
   port: 12316
   server: 38.244.133.105
-  servername: 38.244.133.105
   skip-cert-verify: true
   tls: true
   type: vless
@@ -544,7 +520,6 @@ proxies:
   network: tcp
   port: 12316
   server: 149.33.22.84
-  servername: 149.33.22.84
   skip-cert-verify: true
   tls: true
   type: vless
@@ -554,7 +529,6 @@ proxies:
   network: tcp
   port: 12316
   server: 149.33.25.123
-  servername: 149.33.25.123
   skip-cert-verify: true
   tls: true
   type: vless
@@ -564,7 +538,6 @@ proxies:
   network: tcp
   port: 12316
   server: 149.33.11.141
-  servername: 149.33.11.141
   skip-cert-verify: true
   tls: true
   type: vless
@@ -574,7 +547,6 @@ proxies:
   network: tcp
   port: 12316
   server: 149.33.34.115
-  servername: 149.33.34.115
   skip-cert-verify: true
   tls: true
   type: vless
@@ -584,7 +556,6 @@ proxies:
   network: tcp
   port: 12316
   server: 130.0.238.62
-  servername: 130.0.238.62
   skip-cert-verify: true
   tls: true
   type: vless
@@ -594,7 +565,6 @@ proxies:
   network: tcp
   port: 12316
   server: 38.180.200.170
-  servername: 38.180.200.170
   skip-cert-verify: true
   tls: true
   type: vless
@@ -604,7 +574,6 @@ proxies:
   network: tcp
   port: 12316
   server: 38.180.190.83
-  servername: 38.180.190.83
   skip-cert-verify: true
   tls: true
   type: vless
@@ -614,7 +583,6 @@ proxies:
   network: tcp
   port: 12316
   server: 149.33.30.209
-  servername: 149.33.30.209
   skip-cert-verify: true
   tls: true
   type: vless
@@ -624,7 +592,6 @@ proxies:
   network: tcp
   port: 12316
   server: 149.33.30.209
-  servername: 149.33.30.209
   skip-cert-verify: true
   tls: true
   type: vless
