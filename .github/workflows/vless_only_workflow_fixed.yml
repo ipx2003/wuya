@@ -28,7 +28,7 @@ jobs:
       run: |
         git config --global user.name "GitHub Actions Bot"
         git config --global user.email "actions@github.com"
-        REPO_URL="https://${{ secrets.PAT }}@github.com极速x2003/wuya.git"
+        REPO_URL="https://${{ secrets.PAT }}@github.com/ipx2003/wuya.git"
         git clone $REPO_URL wuya-repo
         cd wuya-repo
         cp ../mihomo_config.yaml .
