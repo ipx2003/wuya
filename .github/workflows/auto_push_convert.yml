@@ -77,7 +77,7 @@ jobs:
                         host, port = server_part, 8388
                     
                     if ':' in auth_part:
-                        cipher, password = auth极速.split(':', 1)
+                        cipher, password = auth_part.split(':', 1)
                     else:
                         try:
                             decoded = base64.urlsafe_b64decode(auth_part + '===').decode('utf-8')
@@ -257,9 +257,9 @@ jobs:
                     'fallback': [
                         '8.8.8.8',
                         '8.8.4.4',
-                        '极速.1.1.1',
+                        '1.1.1.1',
                         'tls://1.0.0.1:853',
-                        '极速://dns.google:853'
+                        'tls://dns.google:853'
                     ]
                 },
                 'proxies': all_proxies,
