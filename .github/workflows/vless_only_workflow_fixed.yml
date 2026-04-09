@@ -1,0 +1,42 @@
+name: VLESS节点专用转换
+
+on:
+  schedule:
+    - cron: '0 20 * * *'
+  workflow_dispatch:
+
+jobs:
+  convert-vless-only:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 检出当前仓库
+      uses: actions/checkout@v4
+      
+    - name: 设置 Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+        
+    - name: 安装依赖
+      run: pip install requests pyyaml
+      
+    - name: 运行VLESS转换脚本
+      run: python convert_vless.py
+        
+    - name: 推送到wuya仓库
+      run: |
+        git config --global user.name "GitHub Actions Bot"
+        git config --global user.email "actions@github.com"
+        REPO_URL="https://${{ secrets.PAT }}@github.com极速x2003/wuya.git"
+        git clone $REPO_URL wuya-repo
+        cd wuya-repo
+        cp ../mihomo_config.yaml .
+        git add mihomo_config.yaml
+        git commit -m "VLESS专用版 $(date +'%Y-%m-%d %H:%M:%S')" || exit 0
+        git push
+        
+    - name: 显示成功信息
+      run: |
+        echo "✅ VLESS专用版完成！"
+        echo "订阅链接: https://raw.githubusercontent.com/ipx2003/wuya/main/mihomo_config.yaml"
