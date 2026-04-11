@@ -15,6 +15,307 @@ log-level: info
 mode: Rule
 port: 7890
 proxies:
+- cipher: aes-256-gcm
+  name: 美国
+  password: 7ae4e68cf77f6089
+  port: 60129
+  server: 195.133.5.36
+  type: ss
+  udp: true
+- cipher: aes-256-gcm
+  name: 新加坡
+  password: oXGOymGM1IE1
+  port: 8388
+  server: 192.124.176.153
+  type: ss
+  udp: true
+- cipher: aes-256-gcm
+  name: 日本
+  password: A8m8DQDM9i7o
+  port: 8388
+  server: 185.141.219.123
+  type: ss
+  udp: true
+- cipher: aes-256-gcm
+  name: 香港
+  password: RI0UcGvIkIDo
+  port: 8388
+  server: 212.192.12.137
+  type: ss
+  udp: true
+- cipher: aes-256-gcm
+  name: 台湾
+  password: c5fcdf7829112cb4
+  port: 20129
+  server: 45.140.169.225
+  type: ss
+  udp: true
+- cipher: aes-256-gcm
+  name: 法国
+  password: 83acf69edb4e5453
+  port: 12091
+  server: 194.87.69.100
+  type: ss
+  udp: true
+- cipher: aes-256-gcm
+  name: 泰国
+  password: 9cdc6440d42cb19c
+  port: 20129
+  server: 89.125.103.52
+  type: ss
+  udp: true
+- cipher: aes-256-gcm
+  name: 澳大利亚
+  password: 9cdc6440d42cb19c
+  port: 20129
+  server: 89.125.103.52
+  type: ss
+  udp: true
+- cipher: aes-256-gcm
+  name: 加拿大
+  password: 9f3d1a6d31468599
+  port: 10990
+  server: 195.58.49.100
+  type: ss
+  udp: true
+- cipher: aes-256-gcm
+  name: 韩国
+  password: 63d7c17506d1f48b
+  port: 19801
+  server: 203.32.26.157
+  type: ss
+  udp: true
+- cipher: aes-256-gcm
+  name: 英国
+  password: f34579d0148b2581
+  port: 60290
+  server: 46.17.44.206
+  type: ss
+  udp: true
+- cipher: aes-256-gcm
+  name: 西班牙
+  password: f34579d0148b2581
+  port: 60290
+  server: 46.17.44.206
+  type: ss
+  udp: true
+- cipher: aes-256-gcm
+  name: 香港2
+  password: 7e1dd4c55bf85da5
+  port: 19081
+  server: 212.192.15.209
+  type: ss
+  udp: true
+- cipher: aes-256-gcm
+  name: 俄罗斯
+  password: 9ca2803c16de72cd
+  port: 10986
+  server: 46.17.40.29
+  type: ss
+  udp: true
+- cipher: aes-256-gcm
+  name: 日本2
+  password: 99394cfebe6c0906
+  port: 30312
+  server: 185.141.219.158
+  type: ss
+  udp: true
+- cipher: aes-256-gcm
+  name: 法国2
+  password: 9ca2803c16de72cd
+  port: 10986
+  server: 46.17.40.29
+  type: ss
+  udp: true
+- cipher: aes-256-gcm
+  name: USHouston
+  password: dada1203
+  port: 80
+  server: 52.73.162.223
+  type: ss
+  udp: true
+- cipher: aes-256-gcm
+  name: JPTokyo
+  password: dada1203
+  port: 80
+  server: 18.143.91.218
+  type: ss
+  udp: true
+- cipher: aes-256-gcm
+  name: KRIncheon
+  password: dada1203
+  port: 80
+  server: 52.78.99.111
+  type: ss
+  udp: true
+- cipher: aes-256-gcm
+  name: CAVancouver
+  password: dada1203
+  port: 80
+  server: 52.90.172.115
+  type: ss
+  udp: true
+- cipher: aes-256-gcm
+  name: JPOsaka
+  password: dada1203
+  port: 80
+  server: 54.254.248.139
+  type: ss
+  udp: true
+- cipher: aes-256-gcm
+  name: SGSingapore
+  password: dada1203
+  port: 80
+  server: 52.68.231.191
+  type: ss
+  udp: true
+- cipher: aes-256-gcm
+  name: TWTaipei
+  password: dada1203
+  port: 80
+  server: 43.203.207.250
+  type: ss
+  udp: true
+- cipher: aes-256-gcm
+  name: USCalifornia
+  password: dada1203
+  port: 80
+  server: 16.144.238.62
+  type: ss
+  udp: true
+- cipher: aes-256-cfb
+  name: 高速专线5线
+  password: hahrgnUUr991
+  port: 48209
+  server: 182.61.60.225
+  type: ss
+  udp: true
+- cipher: aes-256-cfb
+  name: 高速专线4线
+  password: OlpwJ465
+  port: 30238
+  server: 125.122.25.163
+  type: ss
+  udp: true
+- cipher: aes-256-cfb
+  name: 高速专线8线
+  password: uYttkmn2897
+  port: 39671
+  server: 115.190.89.160
+  type: ss
+  udp: true
+- cipher: aes-256-cfb
+  name: 高速专线3线
+  password: OlpwJ465
+  port: 30238
+  server: 125.122.25.163
+  type: ss
+  udp: true
+- cipher: aes-256-cfb
+  name: 高速专线6线
+  password: OlpwJ465
+  port: 30238
+  server: 125.122.25.163
+  type: ss
+  udp: true
+- cipher: aes-256-cfb
+  name: 高速专线2线
+  password: tiuuxUi0897
+  port: 40237
+  server: 8.134.98.238
+  type: ss
+  udp: true
+- cipher: aes-256-cfb
+  name: 高速专线7线
+  password: uYttkmn2897
+  port: 39671
+  server: 115.190.89.160
+  type: ss
+  udp: true
+- cipher: aes-256-cfb
+  name: 高速专线1线
+  password: tiuuxUi0897
+  port: 40237
+  server: 8.134.98.238
+  type: ss
+  udp: true
+- cipher: chacha20-ietf-poly1305
+  name: Chicago#101
+  password: QTmLViU4VEmuwbOxUw4IXd
+  port: 59556
+  server: 107.172.250.161
+  type: ss
+  udp: true
+- cipher: chacha20-ietf-poly1305
+  name: Germany#101
+  password: SUSbr2eLCXmbc64xOHhgEt
+  port: 41195
+  server: 167.172.249.115
+  type: ss
+  udp: true
+- cipher: chacha20-ietf-poly1305
+  name: Germany#102
+  password: Q7cjiVD0oKNE2o9sUnZKQg
+  port: 23243
+  server: 46.101.196.138
+  type: ss
+  udp: true
+- cipher: chacha20-ietf-poly1305
+  name: India#099
+  password: 6ThD1AgwXc8Stpp7hEohLa
+  port: 16970
+  server: 139.59.87.22
+  type: ss
+  udp: true
+- cipher: chacha20-ietf-poly1305
+  name: London#101
+  password: idMvoewrSyLLvEvP03k9zR
+  port: 46576
+  server: 138.68.153.223
+  type: ss
+  udp: true
+- cipher: chacha20-ietf-poly1305
+  name: Netherlands
+  password: WC0GbiCk67K8nHDaDHmYIX
+  port: 19582
+  server: 159.223.236.36
+  type: ss
+  udp: true
+- cipher: chacha20-ietf-poly1305
+  name: New York#101
+  password: elTuo73FsQwO90EbLo96Ve
+  port: 49726
+  server: 45.55.40.127
+  type: ss
+  udp: true
+- cipher: chacha20-ietf-poly1305
+  name: New York#105
+  password: 5vldsNMbQ8B4cKDK0sROwj
+  port: 20683
+  server: 142.93.183.235
+  type: ss
+  udp: true
+- cipher: chacha20-ietf-poly1305
+  name: New York#106
+  password: hk1SdyRWbYi3Igxeow9JdN
+  port: 45389
+  server: 142.93.73.182
+  type: ss
+  udp: true
+- cipher: chacha20-ietf-poly1305
+  name: New York#107
+  password: DZRy4Q3QH0jUGfKFl2jDCZ
+  port: 28960
+  server: 138.197.89.234
+  type: ss
+  udp: true
+- cipher: chacha20-ietf-poly1305
+  name: USA#1
+  password: hk1SdyRWbYi3Igxeow9JdN
+  port: 45389
+  server: 142.93.73.182
+  type: ss
+  udp: true
 - name: 🇭🇰香港01|高速|YouTube
   network: tcp
   port: 12210
@@ -25,7 +326,7 @@ proxies:
   tls: true
   type: vless
   udp: true
-  uuid: a71d0892-60b4-4840-87ca-aadf7ad65967
+  uuid: f849cbc2-1aad-4b17-93a8-a6081552cf66
 - name: 🇭🇰香港02|高速|流媒体
   network: tcp
   port: 12310
@@ -36,7 +337,7 @@ proxies:
   tls: true
   type: vless
   udp: true
-  uuid: a71d0892-60b4-4840-87ca-aadf7ad65967
+  uuid: f849cbc2-1aad-4b17-93a8-a6081552cf66
 - name: 🇭🇰香港03|高速|流媒体
   network: tcp
   port: 12311
@@ -47,7 +348,7 @@ proxies:
   tls: true
   type: vless
   udp: true
-  uuid: a71d0892-60b4-4840-87ca-aadf7ad65967
+  uuid: f849cbc2-1aad-4b17-93a8-a6081552cf66
 - name: 🇨🇳台湾01|高速|流媒体
   network: tcp
   port: 12315
@@ -58,7 +359,7 @@ proxies:
   tls: true
   type: vless
   udp: true
-  uuid: a71d0892-60b4-4840-87ca-aadf7ad65967
+  uuid: f849cbc2-1aad-4b17-93a8-a6081552cf66
 - name: 🇨🇳台湾02|高速|流媒体
   network: tcp
   port: 12316
@@ -69,7 +370,7 @@ proxies:
   tls: true
   type: vless
   udp: true
-  uuid: a71d0892-60b4-4840-87ca-aadf7ad65967
+  uuid: f849cbc2-1aad-4b17-93a8-a6081552cf66
 - name: 🇨🇳台湾03|高速|流媒体
   network: tcp
   port: 12317
@@ -80,7 +381,7 @@ proxies:
   tls: true
   type: vless
   udp: true
-  uuid: a71d0892-60b4-4840-87ca-aadf7ad65967
+  uuid: f849cbc2-1aad-4b17-93a8-a6081552cf66
 - name: 🇨🇳台湾04|高速|流媒体
   network: tcp
   port: 12318
@@ -91,7 +392,7 @@ proxies:
   tls: true
   type: vless
   udp: true
-  uuid: a71d0892-60b4-4840-87ca-aadf7ad65967
+  uuid: f849cbc2-1aad-4b17-93a8-a6081552cf66
 - name: 🇨🇳台湾05|高速|流媒体
   network: tcp
   port: 12319
@@ -102,7 +403,7 @@ proxies:
   tls: true
   type: vless
   udp: true
-  uuid: a71d0892-60b4-4840-87ca-aadf7ad65967
+  uuid: f849cbc2-1aad-4b17-93a8-a6081552cf66
 - name: 🇨🇳台湾06|高速|流媒体
   network: tcp
   port: 12316
@@ -113,7 +414,7 @@ proxies:
   tls: true
   type: vless
   udp: true
-  uuid: a71d0892-60b4-4840-87ca-aadf7ad65967
+  uuid: f849cbc2-1aad-4b17-93a8-a6081552cf66
 - name: 🇺🇸美国01|高速|流媒体
   network: tcp
   port: 12312
@@ -124,7 +425,7 @@ proxies:
   tls: true
   type: vless
   udp: true
-  uuid: a71d0892-60b4-4840-87ca-aadf7ad65967
+  uuid: f849cbc2-1aad-4b17-93a8-a6081552cf66
 - name: 🇺🇸美国02|高速|流媒体
   network: tcp
   port: 12313
@@ -135,7 +436,7 @@ proxies:
   tls: true
   type: vless
   udp: true
-  uuid: a71d0892-60b4-4840-87ca-aadf7ad65967
+  uuid: f849cbc2-1aad-4b17-93a8-a6081552cf66
 - name: 🇺🇸美国03|高速|流媒体
   network: tcp
   port: 12314
@@ -146,7 +447,7 @@ proxies:
   tls: true
   type: vless
   udp: true
-  uuid: a71d0892-60b4-4840-87ca-aadf7ad65967
+  uuid: f849cbc2-1aad-4b17-93a8-a6081552cf66
 - name: 🇺🇸美国04|高速|流媒体
   network: tcp
   port: 12315
@@ -157,7 +458,7 @@ proxies:
   tls: true
   type: vless
   udp: true
-  uuid: a71d0892-60b4-4840-87ca-aadf7ad65967
+  uuid: f849cbc2-1aad-4b17-93a8-a6081552cf66
 - name: 🇯🇵日本01|高速|流媒体
   network: tcp
   port: 12316
@@ -168,7 +469,7 @@ proxies:
   tls: true
   type: vless
   udp: true
-  uuid: a71d0892-60b4-4840-87ca-aadf7ad65967
+  uuid: f849cbc2-1aad-4b17-93a8-a6081552cf66
 - name: 🇯🇵日本02|高速|流媒体
   network: tcp
   port: 12316
@@ -179,7 +480,7 @@ proxies:
   tls: true
   type: vless
   udp: true
-  uuid: a71d0892-60b4-4840-87ca-aadf7ad65967
+  uuid: f849cbc2-1aad-4b17-93a8-a6081552cf66
 - name: 🇯🇵日本03|高速|流媒体
   network: tcp
   port: 12316
@@ -190,7 +491,7 @@ proxies:
   tls: true
   type: vless
   udp: true
-  uuid: a71d0892-60b4-4840-87ca-aadf7ad65967
+  uuid: f849cbc2-1aad-4b17-93a8-a6081552cf66
 - name: 🇩🇰丹麦
   network: tcp
   port: 12316
@@ -201,7 +502,7 @@ proxies:
   tls: true
   type: vless
   udp: true
-  uuid: a71d0892-60b4-4840-87ca-aadf7ad65967
+  uuid: f849cbc2-1aad-4b17-93a8-a6081552cf66
 - name: 🇳🇱荷兰
   network: tcp
   port: 12316
@@ -212,7 +513,7 @@ proxies:
   tls: true
   type: vless
   udp: true
-  uuid: a71d0892-60b4-4840-87ca-aadf7ad65967
+  uuid: f849cbc2-1aad-4b17-93a8-a6081552cf66
 - name: 🇹🇷土耳其
   network: tcp
   port: 12316
@@ -223,7 +524,7 @@ proxies:
   tls: true
   type: vless
   udp: true
-  uuid: a71d0892-60b4-4840-87ca-aadf7ad65967
+  uuid: f849cbc2-1aad-4b17-93a8-a6081552cf66
 - name: 🇹🇭泰国
   network: tcp
   port: 12316
@@ -234,7 +535,7 @@ proxies:
   tls: true
   type: vless
   udp: true
-  uuid: a71d0892-60b4-4840-87ca-aadf7ad65967
+  uuid: f849cbc2-1aad-4b17-93a8-a6081552cf66
 - name: 🇰🇿哈萨克斯坦
   network: tcp
   port: 12316
@@ -245,7 +546,7 @@ proxies:
   tls: true
   type: vless
   udp: true
-  uuid: a71d0892-60b4-4840-87ca-aadf7ad65967
+  uuid: f849cbc2-1aad-4b17-93a8-a6081552cf66
 - name: 🇮🇩印度尼西亚
   network: tcp
   port: 12316
@@ -256,7 +557,7 @@ proxies:
   tls: true
   type: vless
   udp: true
-  uuid: a71d0892-60b4-4840-87ca-aadf7ad65967
+  uuid: f849cbc2-1aad-4b17-93a8-a6081552cf66
 - name: 德国
   network: tcp
   port: 12316
@@ -267,7 +568,7 @@ proxies:
   tls: true
   type: vless
   udp: true
-  uuid: a71d0892-60b4-4840-87ca-aadf7ad65967
+  uuid: f849cbc2-1aad-4b17-93a8-a6081552cf66
 - name: 保加利亚
   network: tcp
   port: 12316
@@ -278,7 +579,7 @@ proxies:
   tls: true
   type: vless
   udp: true
-  uuid: a71d0892-60b4-4840-87ca-aadf7ad65967
+  uuid: f849cbc2-1aad-4b17-93a8-a6081552cf66
 - name: 巴西
   network: tcp
   port: 12316
@@ -289,7 +590,7 @@ proxies:
   tls: true
   type: vless
   udp: true
-  uuid: a71d0892-60b4-4840-87ca-aadf7ad65967
+  uuid: f849cbc2-1aad-4b17-93a8-a6081552cf66
 - name: 比利时
   network: tcp
   port: 12316
@@ -300,7 +601,7 @@ proxies:
   tls: true
   type: vless
   udp: true
-  uuid: a71d0892-60b4-4840-87ca-aadf7ad65967
+  uuid: f849cbc2-1aad-4b17-93a8-a6081552cf66
 - name: 奥地利
   network: tcp
   port: 12316
@@ -311,8 +612,8 @@ proxies:
   tls: true
   type: vless
   udp: true
-  uuid: a71d0892-60b4-4840-87ca-aadf7ad65967
-- name: 澳大利亚
+  uuid: f849cbc2-1aad-4b17-93a8-a6081552cf66
+- name: 澳大利亚_1
   network: tcp
   port: 12316
   server: 149.33.34.115
@@ -322,7 +623,7 @@ proxies:
   tls: true
   type: vless
   udp: true
-  uuid: a71d0892-60b4-4840-87ca-aadf7ad65967
+  uuid: f849cbc2-1aad-4b17-93a8-a6081552cf66
 - name: 乌克兰
   network: tcp
   port: 12316
@@ -333,8 +634,8 @@ proxies:
   tls: true
   type: vless
   udp: true
-  uuid: a71d0892-60b4-4840-87ca-aadf7ad65967
-- name: 英国
+  uuid: f849cbc2-1aad-4b17-93a8-a6081552cf66
+- name: 英国_1
   network: tcp
   port: 12316
   server: 38.180.200.170
@@ -344,8 +645,8 @@ proxies:
   tls: true
   type: vless
   udp: true
-  uuid: a71d0892-60b4-4840-87ca-aadf7ad65967
-- name: 新加坡
+  uuid: f849cbc2-1aad-4b17-93a8-a6081552cf66
+- name: 新加坡_1
   network: tcp
   port: 12316
   server: 38.180.190.83
@@ -355,7 +656,7 @@ proxies:
   tls: true
   type: vless
   udp: true
-  uuid: a71d0892-60b4-4840-87ca-aadf7ad65967
+  uuid: f849cbc2-1aad-4b17-93a8-a6081552cf66
 - name: 马来西亚
   network: tcp
   port: 12316
@@ -366,7 +667,7 @@ proxies:
   tls: true
   type: vless
   udp: true
-  uuid: a71d0892-60b4-4840-87ca-aadf7ad65967
+  uuid: f849cbc2-1aad-4b17-93a8-a6081552cf66
 - name: 马来西亚02
   network: tcp
   port: 12316
@@ -377,10 +678,53 @@ proxies:
   tls: true
   type: vless
   udp: true
-  uuid: a71d0892-60b4-4840-87ca-aadf7ad65967
+  uuid: f849cbc2-1aad-4b17-93a8-a6081552cf66
 proxy-groups:
-- name: 🚀 VLESS节点选择
+- name: 🚀 节点选择
   proxies:
+  - 美国
+  - 新加坡
+  - 日本
+  - 香港
+  - 台湾
+  - 法国
+  - 泰国
+  - 澳大利亚
+  - 加拿大
+  - 韩国
+  - 英国
+  - 西班牙
+  - 香港2
+  - 俄罗斯
+  - 日本2
+  - 法国2
+  - USHouston
+  - JPTokyo
+  - KRIncheon
+  - CAVancouver
+  - JPOsaka
+  - SGSingapore
+  - TWTaipei
+  - USCalifornia
+  - 高速专线5线
+  - 高速专线4线
+  - 高速专线8线
+  - 高速专线3线
+  - 高速专线6线
+  - 高速专线2线
+  - 高速专线7线
+  - 高速专线1线
+  - Chicago#101
+  - Germany#101
+  - Germany#102
+  - India#099
+  - London#101
+  - Netherlands
+  - New York#101
+  - New York#105
+  - New York#106
+  - New York#107
+  - USA#1
   - 🇭🇰香港01|高速|YouTube
   - 🇭🇰香港02|高速|流媒体
   - 🇭🇰香港03|高速|流媒体
@@ -408,15 +752,15 @@ proxy-groups:
   - 巴西
   - 比利时
   - 奥地利
-  - 澳大利亚
+  - 澳大利亚_1
   - 乌克兰
-  - 英国
-  - 新加坡
+  - 英国_1
+  - 新加坡_1
   - 马来西亚
   - 马来西亚02
   - DIRECT
   type: select
 rules:
 - GEOIP,CN,DIRECT
-- MATCH,🚀 VLESS节点选择
+- MATCH,🚀 节点选择
 socks-port: 7891
