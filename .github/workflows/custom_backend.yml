@@ -1,4 +1,4 @@
-name: 自定义后端订阅转换
+name: 正确订阅转换
 
 on:
   schedule:
@@ -6,88 +6,179 @@ on:
   workflow_dispatch:
 
 jobs:
-  custom-convert:
+  correct-convert:
     runs-on: ubuntu-latest
     
     steps:
-    - name: 使用自定义后端转换
-      run: |
-        SUB_URL="https://raw.githubusercontent.com/ipx2003/onskr/main/proxies.txt"
+    - name: 设置 Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
         
-        # 你提供的可用后端
-        BACKENDS=(
-          "https://subapi.cmliussss.net/sub?url=$SUB_URL&target=mihomo"     # CM负载均衡后端
-          "https://subapi.fxxk.dedyn.io/sub?url=$SUB_URL&target=mihomo"     # M应急备用后端  
-          "https://api.v1.mk/sub?url=$SUB_URL&target=mihomo"                # 羊增强型后端
-          "https://url.v1.mk/sub?url=$SUB_URL&target=mihomo"                # 备用后端
-          "https://subapi.zrfme.com/sub?url=$SUB_URL&target=mihomo"          # 周润发后端
-        )
-        
-        SUCCESS=false
-        
-        for API_URL in "${BACKENDS[@]}"; do
-          echo "尝试后端: $(echo $API_URL | cut -d'/' -f3)"
-          
-          # 设置超时和重试
-          if curl -s --fail --connect-timeout 10 --max-time 30 "$API_URL" -o mihomo_config.yaml; then
-            # 检查文件有效性
-            if [ -s mihomo_config.yaml ] && grep -q "proxies:" mihomo_config.yaml; then
-              echo "✅ 转换成功: $(echo $API_URL | cut -d'/' -f3)"
-              SUCCESS=true
-              break
-            else
-              echo "⚠️ 响应内容无效，尝试下一个后端"
-              rm -f mihomo_config.yaml
-            fi
-          else
-            echo "❌ 请求失败，尝试下一个后端"
-          fi
-          
-          sleep 2  # 避免请求过快
-        done
-        
-        if [ "$SUCCESS" = false ]; then
-          echo "❌ 所有自定义后端转换失败"
-          echo "尝试使用原始订阅内容..."
-          
-          # 备用方案：直接使用原始订阅
-          curl -s "https://raw.githubusercontent.com/ipx2003/onskr/main/proxies.txt" -o proxies.txt
-          
-          # 创建基本Mihomo配置
-          echo "port: 7890" > mihomo_config.yaml
-          echo "socks-port: 7891" >> mihomo_config.yaml
-          echo "allow-lan: false" >> mihomo_config.yaml
-          echo "mode: rule" >> mihomo_config.yaml
-          echo "log-level: info" >> mihomo_config.yaml
-          echo "proxies:" >> mihomo_config.yaml
-          
-          # 添加原始节点（前50个）
-          grep -E "^vless://" proxies.txt | head -50 | sed 's/^/  - /' >> mihomo_config.yaml
-          
-          echo "" >> mihomo_config.yaml
-          echo "proxy-groups:" >> mihomo_config.yaml
-          echo "  - name: 🚀 节点选择" >> mihomo_config.yaml
-          echo "    type: select" >> mihomo_config.yaml
-          echo "    proxies:" >> mihomo_config.yaml
-          echo "      - DIRECT" >> mihomo_config.yaml
-          echo "" >> mihomo_config.yaml
-          echo "rules:" >> mihomo_config.yaml
-          echo "  - GEOIP,CN,DIRECT" >> mihomo_config.yaml
-          echo "  - MATCH,🚀 节点选择" >> mihomo_config.yaml
-          
-          echo "✅ 使用原始订阅作为备用方案"
-        fi
-        
-        echo "文件大小: $(wc -l < mihomo_config.yaml) 行"
+    - name: 安装依赖
+      run: pip install pyyaml
       
-    - name: 验证YAML格式
+    - name: 创建正确转换脚本
       run: |
-        if python3 -c "import yaml; yaml.safe_load(open('mihomo_config.yaml').read())" 2>/dev/null; then
-          echo "✅ YAML格式验证成功"
+        cat > convert.py << 'EOF'
+        #!/usr/bin/env python3
+        import requests
+        import base64
+        import yaml
+        import re
+        from urllib.parse import urlparse, parse_qs
+        
+        def parse_vless(vless_url):
+            """解析VLESS链接"""
+            try:
+                # 移除vless://前缀
+                if vless_url.startswith('vless://'):
+                    vless_url = vless_url[8:]
+                
+                # 分割认证部分和服务器部分
+                if '@' in vless_url:
+                    auth_part, server_part = vless_url.split('@', 1)
+                else:
+                    return None
+                
+                # 解析UUID和其他参数
+                if ':' in auth_part:
+                    uuid_str, params = auth_part.split(':', 1)
+                else:
+                    uuid_str = auth_part
+                    params = ""
+                
+                # 解析服务器信息
+                if ':' in server_part:
+                    server, port = server_part.split(':', 1)
+                    if '?' in port:
+                        port, query = port.split('?', 1)
+                    else:
+                        query = ""
+                else:
+                    return None
+                
+                # 解析查询参数
+                params_dict = {}
+                if query:
+                    for param in query.split('&'):
+                        if '=' in param:
+                            key, value = param.split('=', 1)
+                            params_dict[key] = value
+                
+                # 创建节点配置
+                node = {
+                    'name': f"{server}:{port}",
+                    'type': 'vless',
+                    'server': server,
+                    'port': int(port),
+                    'uuid': uuid_str,
+                    'network': params_dict.get('type', 'tcp'),
+                    'tls': 'tls' in params_dict,
+                    'udp': True
+                }
+                
+                if 'host' in params_dict:
+                    node['servername'] = params_dict['host']
+                if 'path' in params_dict:
+                    node['path'] = params_dict['path']
+                
+                # 确保布尔值
+                node['tls'] = bool(node['tls'])
+                node['udp'] = bool(node['udp'])
+                
+                return node
+                
+            except Exception as e:
+                print(f"解析失败: {e}")
+                return None
+        
+        def main():
+            # 下载订阅内容
+            sub_url = "https://raw.githubusercontent.com/ipx2003/onskr/main/proxies.txt"
+            response = requests.get(sub_url)
+            content = response.text
+            
+            # 尝试Base64解码
+            try:
+                decoded = base64.b64decode(content).decode('utf-8')
+                content = decoded
+            except:
+                pass
+            
+            # 解析节点
+            nodes = []
+            name_count = {}
+            
+            for line in content.splitlines():
+                line = line.strip()
+                if not line or line.startswith('#'):
+                    continue
+                
+                if line.startswith('vless://'):
+                    node = parse_vless(line)
+                    if node:
+                        # 确保名称唯一
+                        base_name = node['name']
+                        if base_name in name_count:
+                            name_count[base_name] += 1
+                            node['name'] = f"{base_name}_{name_count[base_name]}"
+                        else:
+                            name_count[base_name] = 1
+                        
+                        nodes.append(node)
+            
+            print(f"成功解析 {len(nodes)} 个节点")
+            
+            # 生成Mihomo配置
+            config = {
+                'port': 7890,
+                'socks-port': 7891,
+                'allow-lan': False,
+                'mode': 'rule',
+                'log-level': 'info',
+                'proxies': nodes,
+                'proxy-groups': [
+                    {
+                        'name': '🚀 自动选择',
+                        'type': 'url-test',
+                        'proxies': [node['name'] for node in nodes],
+                        'url': 'http://www.gstatic.com/generate_204',
+                        'interval': 300
+                    }
+                ],
+                'rules': [
+                    'GEOIP,CN,DIRECT',
+                    'MATCH,🚀 自动选择'
+                ]
+            }
+            
+            # 输出YAML
+            yaml_output = yaml.dump(
+                config,
+                allow_unicode=True,
+                sort_keys=False,
+                default_flow_style=False,
+                indent=2,
+                encoding='utf-8'
+            ).decode('utf-8')
+            
+            print(yaml_output)
+        
+        if __name__ == "__main__":
+            main()
+        EOF
+      
+    - name: 运行转换脚本
+      run: python convert.py > mihomo_config.yaml
+      
+    - name: 验证配置
+      run: |
+        if [ -s mihomo_config.yaml ] && grep -q "proxies:" mihomo_config.yaml; then
+          echo "✅ 转换成功"
+          echo "节点数量: $(grep -c "^  - name:" mihomo_config.yaml)"
         else
-          echo "❌ YAML格式验证失败"
-          echo "=== 文件前5行 ==="
-          head -5 mihomo_config.yaml
+          echo "❌ 转换失败"
           exit 1
         fi
       
@@ -100,13 +191,12 @@ jobs:
         git clone $REPO_URL wuya-repo
         cd wuya-repo
         
-        cp ../mihomo_config.yaml ./mihomo_custom.yaml
-        git add mihomo_custom.yaml
-        git commit -m "自定义后端转换 $(date +'%Y-%m-%d %H:%M:%S')" || exit 0
+        cp ../mihomo_config.yaml ./mihomo_correct.yaml
+        git add mihomo_correct.yaml
+        git commit -m "正确转换版 $(date +'%Y-%m-%d %H:%M:%S')" || exit 0
         git push
         
     - name: 显示结果
       run: |
-        echo "✅ 自定义后端转换完成！"
-        echo "订阅链接: https://raw.githubusercontent.com/ipx2003/wuya/main/mihomo_custom.yaml"
-        echo "节点数量: $(grep -c "^  - name:" mihomo_config.yaml || echo 0)"
+        echo "✅ 正确订阅转换完成！"
+        echo "订阅链接: https://raw.githubusercontent.com/ipx2003/wuya/main/mihomo_correct.yaml"
