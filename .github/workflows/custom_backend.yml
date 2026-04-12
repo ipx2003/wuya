@@ -1,4 +1,4 @@
-name: 正确订阅转换
+name: 最终修复版订阅转换
 
 on:
   schedule:
@@ -6,19 +6,22 @@ on:
   workflow_dispatch:
 
 jobs:
-  correct-convert:
+  final-convert:
     runs-on: ubuntu-latest
     
     steps:
+    - name: 检出仓库
+      uses: actions/checkout@v4
+      
     - name: 设置 Python
       uses: actions/setup-python@v5
       with:
         python-version: '3.10'
         
     - name: 安装依赖
-      run: pip install pyyaml
+      run: pip install requests pyyaml
       
-    - name: 创建正确转换脚本
+    - name: 创建最终转换脚本
       run: |
         cat > convert.py << 'EOF'
         #!/usr/bin/env python3
@@ -29,26 +32,24 @@ jobs:
         from urllib.parse import urlparse, parse_qs
         
         def parse_vless(vless_url):
-            """解析VLESS链接"""
+            """解析VLESS链接为结构化配置"""
             try:
-                # 移除vless://前缀
                 if vless_url.startswith('vless://'):
                     vless_url = vless_url[8:]
+                else:
+                    return None
                 
-                # 分割认证部分和服务器部分
                 if '@' in vless_url:
                     auth_part, server_part = vless_url.split('@', 1)
                 else:
                     return None
                 
-                # 解析UUID和其他参数
                 if ':' in auth_part:
                     uuid_str, params = auth_part.split(':', 1)
                 else:
                     uuid_str = auth_part
                     params = ""
                 
-                # 解析服务器信息
                 if ':' in server_part:
                     server, port = server_part.split(':', 1)
                     if '?' in port:
@@ -58,7 +59,6 @@ jobs:
                 else:
                     return None
                 
-                # 解析查询参数
                 params_dict = {}
                 if query:
                     for param in query.split('&'):
@@ -66,7 +66,7 @@ jobs:
                             key, value = param.split('=', 1)
                             params_dict[key] = value
                 
-                # 创建节点配置
+                # 创建结构化的节点配置
                 node = {
                     'name': f"{server}:{port}",
                     'type': 'vless',
@@ -74,7 +74,7 @@ jobs:
                     'port': int(port),
                     'uuid': uuid_str,
                     'network': params_dict.get('type', 'tcp'),
-                    'tls': 'tls' in params_dict,
+                    'tls': bool('tls' in params_dict),
                     'udp': True
                 }
                 
@@ -82,10 +82,6 @@ jobs:
                     node['servername'] = params_dict['host']
                 if 'path' in params_dict:
                     node['path'] = params_dict['path']
-                
-                # 确保布尔值
-                node['tls'] = bool(node['tls'])
-                node['udp'] = bool(node['udp'])
                 
                 return node
                 
@@ -96,17 +92,23 @@ jobs:
         def main():
             # 下载订阅内容
             sub_url = "https://raw.githubusercontent.com/ipx2003/onskr/main/proxies.txt"
-            response = requests.get(sub_url)
-            content = response.text
+            try:
+                response = requests.get(sub_url, timeout=10)
+                response.raise_for_status()
+                content = response.text
+            except Exception as e:
+                print(f"下载订阅失败: {e}")
+                return
             
             # 尝试Base64解码
             try:
                 decoded = base64.b64decode(content).decode('utf-8')
                 content = decoded
+                print("检测到Base64编码，已解码")
             except:
-                pass
+                print("内容未Base64编码，直接处理")
             
-            # 解析节点
+            # 解析所有VLESS节点
             nodes = []
             name_count = {}
             
@@ -128,9 +130,13 @@ jobs:
                         
                         nodes.append(node)
             
-            print(f"成功解析 {len(nodes)} 个节点")
+            print(f"成功解析 {len(nodes)} 个VLESS节点")
             
-            # 生成Mihomo配置
+            if not nodes:
+                print("❌ 没有找到有效节点")
+                return
+            
+            # 生成正确的Mihomo配置
             config = {
                 'port': 7890,
                 'socks-port': 7891,
@@ -169,16 +175,25 @@ jobs:
             main()
         EOF
       
-    - name: 运行转换脚本
+    - name: 运行最终转换脚本
       run: python convert.py > mihomo_config.yaml
       
-    - name: 验证配置
+    - name: 验证配置格式
       run: |
-        if [ -s mihomo_config.yaml ] && grep -q "proxies:" mihomo_config.yaml; then
-          echo "✅ 转换成功"
+        # 检查配置文件
+        if [ ! -s mihomo_config.yaml ]; then
+          echo "❌ 配置文件为空"
+          exit 1
+        fi
+        
+        # 验证YAML格式
+        if python3 -c "import yaml; yaml.safe_load(open('mihomo_config.yaml').read())" 2>/dev/null; then
+          echo "✅ YAML格式验证成功"
           echo "节点数量: $(grep -c "^  - name:" mihomo_config.yaml)"
         else
-          echo "❌ 转换失败"
+          echo "❌ YAML格式验证失败"
+          echo "=== 文件前10行 ==="
+          head -10 mihomo_config.yaml
           exit 1
         fi
       
@@ -191,12 +206,13 @@ jobs:
         git clone $REPO_URL wuya-repo
         cd wuya-repo
         
-        cp ../mihomo_config.yaml ./mihomo_correct.yaml
-        git add mihomo_correct.yaml
-        git commit -m "正确转换版 $(date +'%Y-%m-%d %H:%M:%S')" || exit 0
+        cp ../mihomo_config.yaml ./mihomo_final.yaml
+        git add mihomo_final.yaml
+        git commit -m "最终转换版 $(date +'%Y-%m-%d %H:%M:%S')" || exit 0
         git push
         
     - name: 显示结果
       run: |
-        echo "✅ 正确订阅转换完成！"
-        echo "订阅链接: https://raw.githubusercontent.com/ipx2003/wuya/main/mihomo_correct.yaml"
+        echo "✅ 最终订阅转换完成！"
+        echo "订阅链接: https://raw.githubusercontent.com/ipx2003/wuya/main/mihomo_final.yaml"
+        echo "节点数量: $(grep -c "^  - name:" mihomo_config.yaml)"
