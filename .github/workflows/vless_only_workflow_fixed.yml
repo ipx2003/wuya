@@ -31,12 +31,12 @@ jobs:
         REPO_URL="https://${{ secrets.PAT }}@github.com/ipx2003/wuya.git"
         git clone $REPO_URL wuya-repo
         cd wuya-repo
-        cp ../mihomo_config.yaml .
-        git add mihomo_config.yaml
+        cp ../mihomo_config.yaml ./mihomo_vless.yaml  # 修改文件名
+        git add mihomo_vless.yaml
         git commit -m "VLESS专用版 $(date +'%Y-%m-%d %H:%M:%S')" || exit 0
         git push
         
     - name: 显示成功信息
       run: |
         echo "✅ VLESS专用版完成！"
-        echo "订阅链接: https://raw.githubusercontent.com/ipx2003/wuya/main/mihomo_config.yaml"
+        echo "订阅链接: https://raw.githubusercontent.com/ipx2003/wuya/main/mihomo_vless.yaml"
