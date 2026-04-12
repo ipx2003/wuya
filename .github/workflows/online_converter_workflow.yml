@@ -1,0 +1,61 @@
+name: 在线订阅转换
+
+on:
+  schedule:
+    - cron: '0 1 * * *'   # 北京时间 09:00
+  workflow_dispatch:
+
+jobs:
+  online-convert:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 使用在线转换服务
+      run: |
+        # 使用公共 subconverter API
+        SUB_URL="https://raw.githubusercontent.com/ipx2003/onskr/main/proxies.txt"
+        API_URL="https://api.subconverter.com/sub?url=$SUB_URL&target=mihomo"
+        
+        # 下载转换后的配置
+        curl -s "$API_URL" -o mihomo_config.yaml
+        
+        # 检查文件是否有效
+        if [ ! -s mihomo_config.yaml ]; then
+          echo "❌ 转换失败，文件为空"
+          exit 1
+        fi
+        
+        echo "✅ 在线转换完成"
+        echo "文件大小: $(wc -l < mihomo_config.yaml) 行"
+      
+    - name: 验证YAML格式
+      run: |
+        # 验证YAML格式
+        if python -c "import yaml; yaml.safe_load(open('mihomo_config.yaml').read())" 2>/dev/null; then
+          echo "✅ YAML格式验证成功"
+        else
+          echo "❌ YAML格式验证失败"
+          echo "=== 文件前5行 ==="
+          head -5 mihomo_config.yaml
+          exit 1
+        fi
+      
+    - name: 推送到目标仓库
+      run: |
+        git config --global user.name "GitHub Actions Bot"
+        git config --global user.email "actions@github.com"
+        
+        REPO_URL="https://${{ secrets.PAT }}@github.com/ipx2003/wuya.git"
+        git clone $REPO_URL wuya-repo
+        cd wuya-repo
+        
+        cp ../mihomo_config.yaml ./mihomo_online.yaml
+        git add mihomo_online.yaml
+        git commit -m "在线转换版 $(date +'%Y-%m-%d %H:%M:%S')" || exit 0
+        git push
+        
+    - name: 显示结果
+      run: |
+        echo "✅ 在线订阅转换完成！"
+        echo "订阅链接: https://raw.githubusercontent.com/ipx2003/wuya/main/mihomo_online.yaml"
+        echo "节点数量: $(grep -c "^  - name:" mihomo_config.yaml || echo 0)"
