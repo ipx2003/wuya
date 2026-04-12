@@ -1,4 +1,4 @@
-name: 最终修复版订阅转换
+name: V2raySE在线转换
 
 on:
   schedule:
@@ -6,194 +6,66 @@ on:
   workflow_dispatch:
 
 jobs:
-  final-convert:
+  v2rayse-convert:
     runs-on: ubuntu-latest
     
     steps:
-    - name: 检出仓库
-      uses: actions/checkout@v4
-      
-    - name: 设置 Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.10'
-        
-    - name: 安装依赖
-      run: pip install requests pyyaml
-      
-    - name: 创建最终转换脚本
+    - name: 使用V2raySE在线转换
       run: |
-        cat > convert.py << 'EOF'
-        #!/usr/bin/env python3
-        import requests
-        import base64
-        import yaml
-        import re
-        from urllib.parse import urlparse, parse_qs
+        SUB_URL="https://raw.githubusercontent.com/ipx2003/onskr/main/proxies.txt"
         
-        def parse_vless(vless_url):
-            """解析VLESS链接为结构化配置"""
-            try:
-                if vless_url.startswith('vless://'):
-                    vless_url = vless_url[8:]
-                else:
-                    return None
-                
-                if '@' in vless_url:
-                    auth_part, server_part = vless_url.split('@', 1)
-                else:
-                    return None
-                
-                if ':' in auth_part:
-                    uuid_str, params = auth_part.split(':', 1)
-                else:
-                    uuid_str = auth_part
-                    params = ""
-                
-                if ':' in server_part:
-                    server, port = server_part.split(':', 1)
-                    if '?' in port:
-                        port, query = port.split('?', 1)
-                    else:
-                        query = ""
-                else:
-                    return None
-                
-                params_dict = {}
-                if query:
-                    for param in query.split('&'):
-                        if '=' in param:
-                            key, value = param.split('=', 1)
-                            params_dict[key] = value
-                
-                # 创建结构化的节点配置
-                node = {
-                    'name': f"{server}:{port}",
-                    'type': 'vless',
-                    'server': server,
-                    'port': int(port),
-                    'uuid': uuid_str,
-                    'network': params_dict.get('type', 'tcp'),
-                    'tls': bool('tls' in params_dict),
-                    'udp': True
-                }
-                
-                if 'host' in params_dict:
-                    node['servername'] = params_dict['host']
-                if 'path' in params_dict:
-                    node['path'] = params_dict['path']
-                
-                return node
-                
-            except Exception as e:
-                print(f"解析失败: {e}")
-                return None
+        # 尝试多个可能的API端点
+        API_ENDPOINTS=(
+          "https://v2rayse.com/api/convert?url=$SUB_URL&target=clash"
+          "https://api.v2rayse.com/sub?url=$SUB_URL&target=clash"
+          "https://v2rayse.com/convert?url=$SUB_URL&format=clash"
+        )
         
-        def main():
-            # 下载订阅内容
-            sub_url = "https://raw.githubusercontent.com/ipx2003/onskr/main/proxies.txt"
-            try:
-                response = requests.get(sub_url, timeout=10)
-                response.raise_for_status()
-                content = response.text
-            except Exception as e:
-                print(f"下载订阅失败: {e}")
-                return
-            
-            # 尝试Base64解码
-            try:
-                decoded = base64.b64decode(content).decode('utf-8')
-                content = decoded
-                print("检测到Base64编码，已解码")
-            except:
-                print("内容未Base64编码，直接处理")
-            
-            # 解析所有VLESS节点
-            nodes = []
-            name_count = {}
-            
-            for line in content.splitlines():
-                line = line.strip()
-                if not line or line.startswith('#'):
-                    continue
-                
-                if line.startswith('vless://'):
-                    node = parse_vless(line)
-                    if node:
-                        # 确保名称唯一
-                        base_name = node['name']
-                        if base_name in name_count:
-                            name_count[base_name] += 1
-                            node['name'] = f"{base_name}_{name_count[base_name]}"
-                        else:
-                            name_count[base_name] = 1
-                        
-                        nodes.append(node)
-            
-            print(f"成功解析 {len(nodes)} 个VLESS节点")
-            
-            if not nodes:
-                print("❌ 没有找到有效节点")
-                return
-            
-            # 生成正确的Mihomo配置
-            config = {
-                'port': 7890,
-                'socks-port': 7891,
-                'allow-lan': False,
-                'mode': 'rule',
-                'log-level': 'info',
-                'proxies': nodes,
-                'proxy-groups': [
-                    {
-                        'name': '🚀 自动选择',
-                        'type': 'url-test',
-                        'proxies': [node['name'] for node in nodes],
-                        'url': 'http://www.gstatic.com/generate_204',
-                        'interval': 300
-                    }
-                ],
-                'rules': [
-                    'GEOIP,CN,DIRECT',
-                    'MATCH,🚀 自动选择'
-                ]
-            }
-            
-            # 输出YAML
-            yaml_output = yaml.dump(
-                config,
-                allow_unicode=True,
-                sort_keys=False,
-                default_flow_style=False,
-                indent=2,
-                encoding='utf-8'
-            ).decode('utf-8')
-            
-            print(yaml_output)
+        SUCCESS=false
         
-        if __name__ == "__main__":
-            main()
-        EOF
-      
-    - name: 运行最终转换脚本
-      run: python convert.py > mihomo_config.yaml
-      
-    - name: 验证配置格式
-      run: |
-        # 检查配置文件
-        if [ ! -s mihomo_config.yaml ]; then
-          echo "❌ 配置文件为空"
+        for API_URL in "${API_ENDPOINTS[@]}"; do
+          echo "尝试端点: $(echo $API_URL | cut -d'/' -f3)"
+          
+          # 尝试请求
+          if curl -s --fail --connect-timeout 30 "$API_URL" -o mihomo_config.yaml; then
+            if [ -s mihomo_config.yaml ] && grep -q "proxies:" mihomo_config.yaml; then
+              echo "✅ V2raySE转换成功"
+              SUCCESS=true
+              break
+            else
+              echo "⚠️ 响应内容无效，尝试下一个端点"
+              rm -f mihomo_config.yaml
+            fi
+          else
+            echo "❌ 请求失败，尝试下一个端点"
+          fi
+          
+          sleep 2
+        done
+        
+        if [ "$SUCCESS" = false ]; then
+          echo "❌ 所有V2raySE端点都失败"
+          echo "尝试手动网页转换..."
+          
+          # 备用方案：使用网页界面参数
+          MANUAL_URL="https://v2rayse.com/node-convert?subscribe=$SUB_URL&type=clash"
+          echo "请手动访问: $MANUAL_URL"
+          echo "然后将生成的配置保存为 mihomo_config.yaml"
           exit 1
         fi
         
+        echo "文件大小: $(wc -l < mihomo_config.yaml) 行"
+      
+    - name: 验证配置格式
+      run: |
         # 验证YAML格式
         if python3 -c "import yaml; yaml.safe_load(open('mihomo_config.yaml').read())" 2>/dev/null; then
           echo "✅ YAML格式验证成功"
           echo "节点数量: $(grep -c "^  - name:" mihomo_config.yaml)"
         else
           echo "❌ YAML格式验证失败"
-          echo "=== 文件前10行 ==="
-          head -10 mihomo_config.yaml
+          echo "=== 文件前5行 ==="
+          head -5 mihomo_config.yaml
           exit 1
         fi
       
@@ -206,13 +78,13 @@ jobs:
         git clone $REPO_URL wuya-repo
         cd wuya-repo
         
-        cp ../mihomo_config.yaml ./mihomo_final.yaml
-        git add mihomo_final.yaml
-        git commit -m "最终转换版 $(date +'%Y-%m-%d %H:%M:%S')" || exit 0
+        cp ../mihomo_config.yaml ./mihomo_v2rayse.yaml
+        git add mihomo_v2rayse.yaml
+        git commit -m "V2raySE在线转换 $(date +'%Y-%m-%d %H:%M:%S')" || exit 0
         git push
         
     - name: 显示结果
       run: |
-        echo "✅ 最终订阅转换完成！"
-        echo "订阅链接: https://raw.githubusercontent.com/ipx2003/wuya/main/mihomo_final.yaml"
+        echo "✅ V2raySE在线转换完成！"
+        echo "订阅链接: https://raw.githubusercontent.com/ipx2003/wuya/main/mihomo_v2rayse.yaml"
         echo "节点数量: $(grep -c "^  - name:" mihomo_config.yaml)"
