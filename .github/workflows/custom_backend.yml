@@ -54,31 +54,26 @@ jobs:
           curl -s "https://raw.githubusercontent.com/ipx2003/onskr/main/proxies.txt" -o proxies.txt
           
           # 创建基本Mihomo配置
-          cat > mihomo_config.yaml << EOF
-port: 7890
-socks-port: 7891
-allow-lan: false
-mode: rule
-log-level: info
-
-proxies:
-EOF
+          echo "port: 7890" > mihomo_config.yaml
+          echo "socks-port: 7891" >> mihomo_config.yaml
+          echo "allow-lan: false" >> mihomo_config.yaml
+          echo "mode: rule" >> mihomo_config.yaml
+          echo "log-level: info" >> mihomo_config.yaml
+          echo "proxies:" >> mihomo_config.yaml
           
           # 添加原始节点（前50个）
           grep -E "^vless://" proxies.txt | head -50 | sed 's/^/  - /' >> mihomo_config.yaml
           
-          cat >> mihomo_config.yaml << EOF
-
-proxy-groups:
-  - name: 🚀 节点选择
-    type: select
-    proxies:
-      - DIRECT
-
-rules:
-  - GEOIP,CN,DIRECT
-  - MATCH,🚀 节点选择
-EOF
+          echo "" >> mihomo_config.yaml
+          echo "proxy-groups:" >> mihomo_config.yaml
+          echo "  - name: 🚀 节点选择" >> mihomo_config.yaml
+          echo "    type: select" >> mihomo_config.yaml
+          echo "    proxies:" >> mihomo_config.yaml
+          echo "      - DIRECT" >> mihomo_config.yaml
+          echo "" >> mihomo_config.yaml
+          echo "rules:" >> mihomo_config.yaml
+          echo "  - GEOIP,CN,DIRECT" >> mihomo_config.yaml
+          echo "  - MATCH,🚀 节点选择" >> mihomo_config.yaml
           
           echo "✅ 使用原始订阅作为备用方案"
         fi
