@@ -1,0 +1,207 @@
+name: 纯净订阅转换
+
+on:
+  schedule:
+    - cron: '0 1 * * *'   # 北京时间 09:00
+  workflow_dispatch:
+
+jobs:
+  clean-convert:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 检出仓库
+      uses: actions/checkout@v4
+      
+    - name: 设置 Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+        
+    - name: 安装依赖
+      run: pip install requests pyyaml
+      
+    - name: 创建纯净转换脚本
+      run: |
+        cat > clean_converter.py << 'EOF'
+        #!/usr/bin/env python3
+        import requests
+        import base64
+        import yaml
+        
+        class CleanConverter:
+            def __init__(self):
+                self.nodes = []
+            
+            def fetch_subscription(self, url):
+                try:
+                    response = requests.get(url, timeout=10)
+                    response.raise_for_status()
+                    return response.text
+                except:
+                    return ""
+            
+            def parse_vless(self, vless_url):
+                try:
+                    if vless_url.startswith('vless://'):
+                        vless_url = vless_url[8:]
+                    
+                    if '@' in vless_url:
+                        auth_part, server_part = vless_url.split('@', 1)
+                    else:
+                        return None
+                    
+                    if ':' in auth_part:
+                        uuid_str, params = auth_part.split(':', 1)
+                    else:
+                        uuid_str = auth_part
+                        params = ""
+                    
+                    if ':' in server_part:
+                        server, port = server_part.split(':', 1)
+                        if '?' in port:
+                            port, query = port.split('?', 1)
+                        else:
+                            query = ""
+                    else:
+                        return None
+                    
+                    params_dict = {}
+                    if query:
+                        for param in query.split('&'):
+                            if '=' in param:
+                                key, value = param.split('=', 1)
+                                params_dict[key] = value
+                    
+                    node = {
+                        'name': f"{server}:{port}",
+                        'type': 'vless',
+                        'server': server,
+                        'port': int(port),
+                        'uuid': uuid_str,
+                        'network': params_dict.get('type', 'tcp'),
+                        'tls': 'tls' in params_dict,
+                        'udp': True
+                    }
+                    
+                    if 'host' in params_dict:
+                        node['servername'] = params_dict['host']
+                    if 'path' in params_dict:
+                        node['path'] = params_dict['path']
+                    
+                    node['tls'] = bool(node['tls'])
+                    node['udp'] = bool(node['udp'])
+                    
+                    return node
+                    
+                except:
+                    return None
+            
+            def process_subscription(self, content):
+                try:
+                    decoded = base64.b64decode(content).decode('utf-8')
+                    content = decoded
+                except:
+                    pass
+                
+                for line in content.splitlines():
+                    line = line.strip()
+                    if not line or line.startswith('#'):
+                        continue
+                    
+                    if line.startswith('vless://'):
+                        node = self.parse_vless(line)
+                        if node:
+                            self.nodes.append(node)
+            
+            def generate_config(self):
+                config = {
+                    'port': 7890,
+                    'socks-port': 7891,
+                    'allow-lan': False,
+                    'mode': 'rule',
+                    'log-level': 'info',
+                    'proxies': self.nodes,
+                    'proxy-groups': [
+                        {
+                            'name': '🚀 自动选择',
+                            'type': 'url-test',
+                            'proxies': [node['name'] for node in self.nodes],
+                            'url': 'http://www.gstatic.com/generate_204',
+                            'interval': 300
+                        }
+                    ],
+                    'rules': [
+                        'GEOIP,CN,DIRECT',
+                        'MATCH,🚀 自动选择'
+                    ]
+                }
+                
+                return yaml.dump(
+                    config,
+                    allow_unicode=True,
+                    sort_keys=False,
+                    default_flow_style=False,
+                    indent=2,
+                    encoding='utf-8'
+                ).decode('utf-8')
+            
+            def convert(self, sub_urls):
+                for url in sub_urls:
+                    content = self.fetch_subscription(url)
+                    if content:
+                        self.process_subscription(content)
+                
+                return self.generate_config()
+        
+        if __name__ == "__main__":
+            converter = CleanConverter()
+            
+            subscription_urls = [
+                "https://raw.githubusercontent.com/ipx2003/onskr/main/proxies.txt"
+            ]
+            
+            config = converter.convert(subscription_urls)
+            print(config)
+        EOF
+      
+    - name: 运行纯净转换
+      run: python clean_converter.py > mihomo_config.yaml
+      
+    - name: 验证YAML格式
+      run: |
+        # 检查文件是否为空
+        if [ ! -s mihomo_config.yaml ]; then
+          echo "❌ 生成的文件为空"
+          exit 1
+        fi
+        
+        # 验证YAML格式
+        if python -c "import yaml; yaml.safe_load(open('mihomo_config.yaml').read())" 2>/dev/null; then
+          echo "✅ YAML格式验证成功"
+        else
+          echo "❌ YAML格式验证失败"
+          echo "=== 文件前10行 ==="
+          head -10 mihomo_config.yaml
+          exit 1
+        fi
+      
+    - name: 推送到目标仓库
+      run: |
+        git config --global user.name "GitHub Actions Bot"
+        git config --global user.email "actions@github.com"
+        
+        REPO_URL="https://${{ secrets.PAT }}@github.com/ipx2003/wuya.git"
+        git clone $REPO_URL wuya-repo
+        cd wuya-repo
+        
+        cp ../mihomo_config.yaml ./mihomo_clean.yaml
+        git add mihomo_clean.yaml
+        git commit -m "纯净转换版 $(date +'%Y-%m-%d %H:%M:%S')" || exit 0
+        git push
+        
+    - name: 显示结果
+      run: |
+        echo "✅ 纯净订阅转换完成！"
+        echo "订阅链接: https://raw.githubusercontent.com/ipx2003/wuya/main/mihomo_clean.yaml"
+        echo "节点数量: $(grep -c "^  - name:" mihomo_config.yaml || echo 0)"
