@@ -14,14 +14,40 @@ jobs:
       run: |
         # 使用公共 subconverter API
         SUB_URL="https://raw.githubusercontent.com/ipx2003/onskr/main/proxies.txt"
-        API_URL="https://api.subconverter.com/sub?url=$SUB_URL&target=mihomo"
         
-        # 下载转换后的配置
-        curl -s "$API_URL" -o mihomo_config.yaml
+        # 尝试多个公共 API
+        API_URLS=(
+          "https://api.subconverter.com/sub?url=$SUB_URL&target=mihomo"
+          "https://sub.xeton.dev/sub?url=$SUB_URL&target=mihomo"
+          "https://api.v1.mk/sub?url=$SUB_URL&target=mihomo"
+          "https://api.wcc.best/sub?url=$SUB_URL&target=mihomo"
+        )
         
-        # 检查文件是否有效
-        if [ ! -s mihomo_config.yaml ]; then
-          echo "❌ 转换失败，文件为空"
+        SUCCESS=false
+        
+        for API_URL in "${API_URLS[@]}"; do
+          echo "尝试 API: $API_URL"
+          
+          # 下载转换后的配置
+          if curl -s --fail "$API_URL" -o mihomo_config.yaml; then
+            # 检查文件是否有效
+            if [ -s mihomo_config.yaml ] && grep -q "proxies:" mihomo_config.yaml; then
+              echo "✅ 转换成功: $(echo $API_URL | cut -d'/' -f3)"
+              SUCCESS=true
+              break
+            else
+              echo "⚠️ 响应内容无效，尝试下一个API"
+              rm -f mihomo_config.yaml
+            fi
+          else
+            echo "❌ API请求失败，尝试下一个"
+          fi
+          
+          sleep 1  # 避免请求过快
+        done
+        
+        if [ "$SUCCESS" = false ]; then
+          echo "❌ 所有API转换失败"
           exit 1
         fi
         
@@ -31,7 +57,7 @@ jobs:
     - name: 验证YAML格式
       run: |
         # 验证YAML格式
-        if python -c "import yaml; yaml.safe_load(open('mihomo_config.yaml').read())" 2>/dev/null; then
+        if python3 -c "import yaml; yaml.safe_load(open('mihomo_config.yaml').read())" 2>/dev/null; then
           echo "✅ YAML格式验证成功"
         else
           echo "❌ YAML格式验证失败"
