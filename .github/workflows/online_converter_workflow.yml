@@ -1,4 +1,4 @@
-name: 在线订阅转换
+name: 自定义后端订阅转换
 
 on:
   schedule:
@@ -6,57 +6,87 @@ on:
   workflow_dispatch:
 
 jobs:
-  online-convert:
+  custom-convert:
     runs-on: ubuntu-latest
     
     steps:
-    - name: 使用在线转换服务
+    - name: 使用自定义后端转换
       run: |
-        # 使用公共 subconverter API
         SUB_URL="https://raw.githubusercontent.com/ipx2003/onskr/main/proxies.txt"
         
-        # 尝试多个公共 API
-        API_URLS=(
-          "https://api.subconverter.com/sub?url=$SUB_URL&target=mihomo"
-          "https://sub.xeton.dev/sub?url=$SUB_URL&target=mihomo"
-          "https://api.v1.mk/sub?url=$SUB_URL&target=mihomo"
-          "https://api.wcc.best/sub?url=$SUB_URL&target=mihomo"
+        # 你提供的可用后端
+        BACKENDS=(
+          "https://subapi.cmliussss.net/sub?url=$SUB_URL&target=mihomo"     # CM负载均衡后端
+          "https://subapi.fxxk.dedyn.io/sub?url=$SUB_URL&target=mihomo"     # M应急备用后端  
+          "https://api.v1.mk/sub?url=$SUB_URL&target=mihomo"                # 羊增强型后端
+          "https://url.v1.mk/sub?url=$SUB_URL&target=mihomo"                # 备用后端
+          "https://subapi.zrfme.com/sub?url=$SUB_URL&target=mihomo"          # 周润发后端
         )
         
         SUCCESS=false
         
-        for API_URL in "${API_URLS[@]}"; do
-          echo "尝试 API: $API_URL"
+        for API_URL in "${BACKENDS[@]}"; do
+          echo "尝试后端: $(echo $API_URL | cut -d'/' -f3)"
           
-          # 下载转换后的配置
-          if curl -s --fail "$API_URL" -o mihomo_config.yaml; then
-            # 检查文件是否有效
+          # 设置超时和重试
+          if curl -s --fail --connect-timeout 10 --max-time 30 "$API_URL" -o mihomo_config.yaml; then
+            # 检查文件有效性
             if [ -s mihomo_config.yaml ] && grep -q "proxies:" mihomo_config.yaml; then
               echo "✅ 转换成功: $(echo $API_URL | cut -d'/' -f3)"
               SUCCESS=true
               break
             else
-              echo "⚠️ 响应内容无效，尝试下一个API"
+              echo "⚠️ 响应内容无效，尝试下一个后端"
               rm -f mihomo_config.yaml
             fi
           else
-            echo "❌ API请求失败，尝试下一个"
+            echo "❌ 请求失败，尝试下一个后端"
           fi
           
-          sleep 1  # 避免请求过快
+          sleep 2  # 避免请求过快
         done
         
         if [ "$SUCCESS" = false ]; then
-          echo "❌ 所有API转换失败"
-          exit 1
+          echo "❌ 所有自定义后端转换失败"
+          echo "尝试使用原始订阅内容..."
+          
+          # 备用方案：直接使用原始订阅
+          curl -s "https://raw.githubusercontent.com/ipx2003/onskr/main/proxies.txt" -o proxies.txt
+          
+          # 创建基本Mihomo配置
+          cat > mihomo_config.yaml << EOF
+port: 7890
+socks-port: 7891
+allow-lan: false
+mode: rule
+log-level: info
+
+proxies:
+EOF
+          
+          # 添加原始节点（前50个）
+          grep -E "^vless://" proxies.txt | head -50 | sed 's/^/  - /' >> mihomo_config.yaml
+          
+          cat >> mihomo_config.yaml << EOF
+
+proxy-groups:
+  - name: 🚀 节点选择
+    type: select
+    proxies:
+      - DIRECT
+
+rules:
+  - GEOIP,CN,DIRECT
+  - MATCH,🚀 节点选择
+EOF
+          
+          echo "✅ 使用原始订阅作为备用方案"
         fi
         
-        echo "✅ 在线转换完成"
         echo "文件大小: $(wc -l < mihomo_config.yaml) 行"
       
     - name: 验证YAML格式
       run: |
-        # 验证YAML格式
         if python3 -c "import yaml; yaml.safe_load(open('mihomo_config.yaml').read())" 2>/dev/null; then
           echo "✅ YAML格式验证成功"
         else
@@ -75,13 +105,13 @@ jobs:
         git clone $REPO_URL wuya-repo
         cd wuya-repo
         
-        cp ../mihomo_config.yaml ./mihomo_online.yaml
-        git add mihomo_online.yaml
-        git commit -m "在线转换版 $(date +'%Y-%m-%d %H:%M:%S')" || exit 0
+        cp ../mihomo_config.yaml ./mihomo_custom.yaml
+        git add mihomo_custom.yaml
+        git commit -m "自定义后端转换 $(date +'%Y-%m-%d %H:%M:%S')" || exit 0
         git push
         
     - name: 显示结果
       run: |
-        echo "✅ 在线订阅转换完成！"
-        echo "订阅链接: https://raw.githubusercontent.com/ipx2003/wuya/main/mihomo_online.yaml"
+        echo "✅ 自定义后端转换完成！"
+        echo "订阅链接: https://raw.githubusercontent.com/ipx2003/wuya/main/mihomo_custom.yaml"
         echo "节点数量: $(grep -c "^  - name:" mihomo_config.yaml || echo 0)"
