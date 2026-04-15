@@ -128,80 +128,52 @@ proxies:
   type: ss
   udp: true
 - cipher: aes-256-gcm
-  name: USHouston
-  password: dada1203
-  port: 80
-  server: 52.73.162.223
-  type: ss
-  udp: true
-- cipher: aes-256-gcm
-  name: SGSingapore
-  password: dada1203
-  port: 80
-  server: 15.237.185.173
-  type: ss
-  udp: true
-- cipher: aes-256-gcm
-  name: TWTaipei
-  password: dada1203
-  port: 80
-  server: 43.203.209.172
-  type: ss
-  udp: true
-- cipher: aes-256-gcm
-  name: JPTokyo
-  password: dada1203
-  port: 80
-  server: 13.228.29.203
-  type: ss
-  udp: true
-- cipher: aes-256-gcm
   name: KRIncheon
   password: dada1203
   port: 80
-  server: 43.202.2.98
+  server: 13.36.175.228
+  type: ss
+  udp: true
+- cipher: aes-256-gcm
+  name: USHouston
+  password: dada1203
+  port: 80
+  server: 16.144.238.62
   type: ss
   udp: true
 - cipher: aes-256-gcm
   name: JPOsaka
   password: dada1203
   port: 80
-  server: 54.254.248.139
+  server: 13.228.29.203
+  type: ss
+  udp: true
+- cipher: aes-256-gcm
+  name: SGSingapore
+  password: dada1203
+  port: 80
+  server: 18.171.170.223
   type: ss
   udp: true
 - cipher: aes-256-gcm
   name: CAVancouver
   password: dada1203
   port: 80
-  server: 52.90.172.115
+  server: 18.226.104.72
   type: ss
   udp: true
 - cipher: aes-256-gcm
-  name: USCalifornia
+  name: JPTokyo
   password: dada1203
   port: 80
-  server: 16.144.238.62
+  server: 43.203.209.172
   type: ss
   udp: true
-- cipher: aes-256-cfb
-  name: 高速专线5线
-  password: hahrgnUUr991
-  port: 48209
-  server: 182.61.60.225
-  type: ss
-  udp: true
-- cipher: aes-256-cfb
-  name: 高速专线4线
-  password: OlpwJ465
-  port: 30238
-  server: 125.122.25.163
-  type: ss
-  udp: true
-- cipher: aes-256-cfb
-  name: 高速专线7线
-  password: uYttkmn2897
-  port: 39671
-  server: 115.190.89.160
+- cipher: aes-256-gcm
+  name: TWTaipei
+  password: dada1203
+  port: 80
+  server: 16.60.165.0
   type: ss
   udp: true
 - cipher: aes-256-cfb
@@ -219,10 +191,10 @@ proxies:
   type: ss
   udp: true
 - cipher: aes-256-cfb
-  name: 高速专线8线
-  password: uYttkmn2897
-  port: 39671
-  server: 115.190.89.160
+  name: 高速专线4线
+  password: OlpwJ465
+  port: 30238
+  server: 125.122.25.163
   type: ss
   udp: true
 - cipher: aes-256-cfb
@@ -233,10 +205,31 @@ proxies:
   type: ss
   udp: true
 - cipher: aes-256-cfb
+  name: 高速专线8线
+  password: uYttkmn2897
+  port: 39671
+  server: 115.190.89.160
+  type: ss
+  udp: true
+- cipher: aes-256-cfb
   name: 高速专线6线
   password: OlpwJ465
   port: 30238
   server: 125.122.25.163
+  type: ss
+  udp: true
+- cipher: aes-256-cfb
+  name: 高速专线7线
+  password: uYttkmn2897
+  port: 39671
+  server: 115.190.89.160
+  type: ss
+  udp: true
+- cipher: aes-256-cfb
+  name: 高速专线5线
+  password: hahrgnUUr991
+  port: 48209
+  server: 182.61.60.225
   type: ss
   udp: true
 - cipher: chacha20-ietf-poly1305
@@ -316,6 +309,13 @@ proxies:
   server: 142.93.73.182
   type: ss
   udp: true
+- cipher: chacha20-ietf-poly1305
+  name: USA-New Jersey
+  password: ExUzHZ3AqMIVRmz9r6mcgy
+  port: 19353
+  server: 66.154.114.231
+  type: ss
+  udp: true
 proxy-groups:
 - name: 🚀 SS节点选择
   proxies:
@@ -335,22 +335,21 @@ proxy-groups:
   - 俄罗斯
   - 日本2
   - 法国2
-  - USHouston
-  - SGSingapore
-  - TWTaipei
-  - JPTokyo
   - KRIncheon
+  - USHouston
   - JPOsaka
+  - SGSingapore
   - CAVancouver
-  - USCalifornia
-  - 高速专线5线
-  - 高速专线4线
-  - 高速专线7线
+  - JPTokyo
+  - TWTaipei
   - 高速专线3线
   - 高速专线1线
-  - 高速专线8线
+  - 高速专线4线
   - 高速专线2线
+  - 高速专线8线
   - 高速专线6线
+  - 高速专线7线
+  - 高速专线5线
   - Chicago#101
   - Germany#101
   - Germany#102
@@ -362,6 +361,7 @@ proxy-groups:
   - New York#106
   - New York#107
   - USA#1
+  - USA-New Jersey
   - DIRECT
   type: select
 rules:
