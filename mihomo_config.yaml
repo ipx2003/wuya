@@ -19,97 +19,97 @@ proxies:
   name: 美国
   password: 7ae4e68cf77f6089
   port: 40129
-  server: 46.17.45.68
+  server: 46.17.41.202
   type: ss
   udp: true
 - cipher: aes-256-gcm
   name: 新加坡
-  password: b5qzHbQ98bSk
+  password: rlnuK3GkwkfM
   port: 8388
-  server: 192.124.176.125
+  server: 192.124.176.49
   type: ss
   udp: true
 - cipher: aes-256-gcm
   name: 日本
-  password: OPfrjA9xz5nw
+  password: ngwyAZszOE90
   port: 8388
-  server: 185.141.219.204
+  server: 185.141.219.93
   type: ss
   udp: true
 - cipher: aes-256-gcm
   name: 香港
-  password: l7ovn4LE9gls
+  password: rjb2277Yf9nu
   port: 8388
-  server: 212.192.15.127
+  server: 212.192.12.81
   type: ss
   udp: true
 - cipher: aes-256-gcm
   name: 台湾
   password: c5fcdf7829112cb4
-  port: 40412
-  server: 46.17.41.39
+  port: 60129
+  server: 45.140.169.216
   type: ss
   udp: true
 - cipher: aes-256-gcm
   name: 法国
   password: 3150466568eda87b
-  port: 50123
+  port: 60129
   server: 195.58.49.26
   type: ss
   udp: true
 - cipher: aes-256-gcm
   name: 泰国
   password: 1a87017d0bf57f34
-  port: 40120
+  port: 60129
   server: 176.32.39.99
   type: ss
   udp: true
 - cipher: aes-256-gcm
   name: 澳大利亚
   password: 1a87017d0bf57f34
-  port: 40120
+  port: 60129
   server: 176.32.39.99
   type: ss
   udp: true
 - cipher: aes-256-gcm
   name: 加拿大
   password: 9f3d1a6d31468599
-  port: 40901
+  port: 60129
   server: 195.58.49.9
   type: ss
   udp: true
 - cipher: aes-256-gcm
   name: 韩国
   password: 63d7c17506d1f48b
-  port: 40120
+  port: 60981
   server: 203.32.26.24
   type: ss
   udp: true
 - cipher: aes-256-gcm
   name: 英国
   password: f34579d0148b2581
-  port: 60290
-  server: 185.22.154.51
+  port: 9012
+  server: 185.22.154.104
   type: ss
   udp: true
 - cipher: aes-256-gcm
   name: 西班牙
   password: f34579d0148b2581
-  port: 60290
-  server: 185.22.154.51
+  port: 9012
+  server: 185.22.154.104
   type: ss
   udp: true
 - cipher: aes-256-gcm
   name: 香港2
   password: 7e1dd4c55bf85da5
   port: 40210
-  server: 212.192.12.37
+  server: 212.192.15.78
   type: ss
   udp: true
 - cipher: aes-256-gcm
   name: 俄罗斯
   password: 9ca2803c16de72cd
-  port: 40412
+  port: 60129
   server: 46.17.41.191
   type: ss
   udp: true
@@ -117,81 +117,88 @@ proxies:
   name: 日本2
   password: 99394cfebe6c0906
   port: 30312
-  server: 185.141.219.46
+  server: 185.141.219.21
   type: ss
   udp: true
 - cipher: aes-256-gcm
   name: 法国2
   password: 9ca2803c16de72cd
-  port: 40412
+  port: 60129
   server: 46.17.41.191
-  type: ss
-  udp: true
-- cipher: aes-256-gcm
-  name: JPOsaka
-  password: dada1203
-  port: 80
-  server: 13.229.87.205
-  type: ss
-  udp: true
-- cipher: aes-256-gcm
-  name: TWTaipei
-  password: dada1203
-  port: 80
-  server: 52.78.78.177
   type: ss
   udp: true
 - cipher: aes-256-gcm
   name: JPTokyo
   password: dada1203
   port: 80
-  server: 13.135.253.180
+  server: 52.62.162.42
   type: ss
   udp: true
 - cipher: aes-256-gcm
-  name: KRIncheon
+  name: JPOsaka
   password: dada1203
   port: 80
-  server: 18.130.75.233
+  server: 52.77.218.232
   type: ss
   udp: true
 - cipher: aes-256-gcm
   name: SGSingapore
   password: dada1203
   port: 80
-  server: 43.203.193.82
+  server: 13.125.51.120
   type: ss
   udp: true
-- cipher: aes-256-cfb
-  name: 高速专线3线
-  password: OlpwJ465
-  port: 30238
-  server: 125.122.25.163
+- cipher: aes-256-gcm
+  name: TWTaipei
+  password: dada1203
+  port: 80
+  server: 3.39.229.209
+  type: ss
+  udp: true
+- cipher: aes-256-gcm
+  name: KRIncheon
+  password: dada1203
+  port: 80
+  server: 18.169.172.93
+  type: ss
+  udp: true
+- cipher: aes-256-gcm
+  name: CAVancouver
+  password: dada1203
+  port: 80
+  server: 52.24.121.22
+  type: ss
+  udp: true
+- cipher: aes-256-gcm
+  name: USHouston
+  password: dada1203
+  port: 80
+  server: 54.226.157.241
   type: ss
   udp: true
 - cipher: aes-256-cfb
   name: 高速专线8线
-  password: uYttkmn2897
-  port: 39671
-  server: 115.190.89.160
+  password: hahrgnUUr991
+  port: 48209
+  server: 182.61.60.225
   type: ss
   udp: true
 - cipher: aes-256-cfb
-  name: 高速专线7线
-  password: uYttkmn2897
-  port: 39671
-  server: 115.190.89.160
-  type: ss
-  udp: true
-- cipher: aes-256-cfb
-  name: 高速专线6线
+  name: 高速专线4线
   password: OlpwJ465
   port: 30238
   server: 125.122.25.163
   type: ss
   udp: true
 - cipher: aes-256-cfb
-  name: 高速专线4线
+  name: 高速专线2线
+  password: tiuuxUi0897
+  port: 40237
+  server: 8.134.98.238
+  type: ss
+  udp: true
+- cipher: aes-256-cfb
+  name: 高速专线6线
   password: OlpwJ465
   port: 30238
   server: 125.122.25.163
@@ -205,17 +212,24 @@ proxies:
   type: ss
   udp: true
 - cipher: aes-256-cfb
-  name: 高速专线2线
-  password: tiuuxUi0897
-  port: 40237
-  server: 8.134.98.238
-  type: ss
-  udp: true
-- cipher: aes-256-cfb
   name: 高速专线5线
   password: hahrgnUUr991
   port: 48209
   server: 182.61.60.225
+  type: ss
+  udp: true
+- cipher: aes-256-cfb
+  name: 高速专线7线
+  password: OlpwJ465
+  port: 30238
+  server: 125.122.25.163
+  type: ss
+  udp: true
+- cipher: aes-256-cfb
+  name: 高速专线3线
+  password: OlpwJ465
+  port: 30238
+  server: 125.122.25.163
   type: ss
   udp: true
 - cipher: chacha20-ietf-poly1305
@@ -335,19 +349,21 @@ proxy-groups:
   - 俄罗斯
   - 日本2
   - 法国2
-  - JPOsaka
-  - TWTaipei
   - JPTokyo
-  - KRIncheon
+  - JPOsaka
   - SGSingapore
-  - 高速专线3线
+  - TWTaipei
+  - KRIncheon
+  - CAVancouver
+  - USHouston
   - 高速专线8线
-  - 高速专线7线
-  - 高速专线6线
   - 高速专线4线
-  - 高速专线1线
   - 高速专线2线
+  - 高速专线6线
+  - 高速专线1线
   - 高速专线5线
+  - 高速专线7线
+  - 高速专线3线
   - Chicago#101
   - Germany#101
   - Germany#102
