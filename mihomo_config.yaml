@@ -38,9 +38,9 @@ proxies:
   udp: true
 - cipher: aes-256-gcm
   name: 香港
-  password: VDsL4fpZijD4
+  password: oIu6zc7sYBef
   port: 8388
-  server: 103.136.150.202
+  server: 212.192.15.222
   type: ss
   udp: true
 - cipher: aes-256-gcm
@@ -120,50 +120,15 @@ proxies:
   server: 46.29.163.168
   type: ss
   udp: true
-- cipher: aes-256-gcm
-  name: USHouston
-  password: dada1203
-  port: 80
-  server: 44.250.70.34
-  type: ss
-  udp: true
-- cipher: aes-256-gcm
-  name: JPOsaka
-  password: dada1203
-  port: 80
-  server: 13.54.184.100
-  type: ss
-  udp: true
-- cipher: aes-256-gcm
-  name: CAVancouver
-  password: dada1203
-  port: 80
-  server: 35.91.98.125
-  type: ss
-  udp: true
 - cipher: aes-256-cfb
-  name: 高速专线4线
+  name: 高速专线3线
   password: OlpwJ465
   port: 30238
   server: 125.122.25.163
-  type: ss
-  udp: true
-- cipher: aes-256-cfb
-  name: 高速专线5线
-  password: hahrgnUUr991
-  port: 48209
-  server: 182.61.60.225
   type: ss
   udp: true
 - cipher: aes-256-cfb
   name: 高速专线6线
-  password: OlpwJ465
-  port: 30238
-  server: 125.122.25.163
-  type: ss
-  udp: true
-- cipher: aes-256-cfb
-  name: 高速专线3线
   password: OlpwJ465
   port: 30238
   server: 125.122.25.163
@@ -184,10 +149,10 @@ proxies:
   type: ss
   udp: true
 - cipher: aes-256-cfb
-  name: 高速专线8线
-  password: hahrgnUUr991
-  port: 48209
-  server: 182.61.60.225
+  name: 高速专线4线
+  password: OlpwJ465
+  port: 30238
+  server: 125.122.25.163
   type: ss
   udp: true
 - cipher: aes-256-cfb
@@ -195,6 +160,20 @@ proxies:
   password: tiuuxUi0897
   port: 40237
   server: 8.134.98.238
+  type: ss
+  udp: true
+- cipher: aes-256-cfb
+  name: 高速专线8线
+  password: hahrgnUUr991
+  port: 48209
+  server: 182.61.60.225
+  type: ss
+  udp: true
+- cipher: aes-256-cfb
+  name: 高速专线5线
+  password: hahrgnUUr991
+  port: 48209
+  server: 182.61.60.225
   type: ss
   udp: true
 - cipher: chacha20-ietf-poly1305
@@ -230,13 +209,6 @@ proxies:
   password: idMvoewrSyLLvEvP03k9zR
   port: 46576
   server: 138.68.153.223
-  type: ss
-  udp: true
-- cipher: chacha20-ietf-poly1305
-  name: Netherlands
-  password: WC0GbiCk67K8nHDaDHmYIX
-  port: 19582
-  server: 159.223.236.36
   type: ss
   udp: true
 - cipher: chacha20-ietf-poly1305
@@ -282,6 +254,13 @@ proxies:
   type: ss
   udp: true
 - cipher: aes-256-gcm
+  name: Amsterdam#1
+  password: R8EJfhdHzSUYeicBMZYp58ctYYzDqDO3LEqXYj6PnM
+  port: 8388
+  server: 146.190.236.203
+  type: ss
+  udp: true
+- cipher: aes-256-gcm
   name: Bangalore (Auto)
   password: XFxsnx65klydzrAAEeEcgJWpmK0XGDyV7usnRVCWvhc
   port: 8388
@@ -289,17 +268,17 @@ proxies:
   type: ss
   udp: true
 - cipher: aes-256-gcm
-  name: Singapore (Auto)
-  password: 7GaQIM4q84sLnhqQJ8mLqb0KbdDmBWxKPaXa59tFXtg
+  name: Singapore#1
+  password: VrVMrIMrJfDZkg6Z2VtxXjbIZJWy1abJUSZe9p0tE
   port: 8388
-  server: 165.22.111.31
+  server: 152.42.253.35
   type: ss
   udp: true
 - cipher: aes-256-gcm
   name: Sydney#1
-  password: DOvMXAYGG7u4gb68FIYQCSfLebq1BOjBwz09jnjmWQ
+  password: PxKilgaP6FjiiNvnXsYPI3DuOGTeKmjhWizruysLPAY
   port: 8388
-  server: 134.199.149.225
+  server: 170.64.176.132
   type: ss
   udp: true
 proxy-groups:
@@ -320,31 +299,28 @@ proxy-groups:
   - 香港2
   - 俄罗斯
   - 日本2
-  - USHouston
-  - JPOsaka
-  - CAVancouver
-  - 高速专线4线
-  - 高速专线5线
-  - 高速专线6线
   - 高速专线3线
+  - 高速专线6线
   - 高速专线7线
   - 高速专线2线
-  - 高速专线8线
+  - 高速专线4线
   - 高速专线1线
+  - 高速专线8线
+  - 高速专线5线
   - California#101
   - Chicago#101
   - Germany#101
   - Germany#102
   - London#101
-  - Netherlands
   - New York#101
   - New York#105
   - New York#106
   - New York#107
   - USA#1
   - USA-New Jersey
+  - Amsterdam#1
   - Bangalore (Auto)
-  - Singapore (Auto)
+  - Singapore#1
   - Sydney#1
   - DIRECT
   type: select
