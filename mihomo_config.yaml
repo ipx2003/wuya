@@ -31,16 +31,16 @@ proxies:
   udp: true
 - cipher: aes-256-gcm
   name: 日本
-  password: AKwE7SVMLTjC
+  password: g5blGL0xCvRR
   port: 8388
-  server: 185.141.219.215
+  server: 185.141.219.170
   type: ss
   udp: true
 - cipher: aes-256-gcm
   name: 香港
-  password: ItBgVHOiVpEy
+  password: 6F6OcoZIQED5
   port: 8388
-  server: 212.192.12.242
+  server: 212.192.13.187
   type: ss
   udp: true
 - cipher: aes-256-gcm
@@ -75,7 +75,7 @@ proxies:
   name: 加拿大
   password: 9f3d1a6d31468599
   port: 60129
-  server: 176.32.39.72
+  server: 195.133.23.164
   type: ss
   udp: true
 - cipher: aes-256-gcm
@@ -103,7 +103,7 @@ proxies:
   name: 香港2
   password: b24a80e79cee1d1f
   port: 20129
-  server: 46.29.163.195
+  server: 46.29.163.176
   type: ss
   udp: true
 - cipher: aes-256-gcm
@@ -117,35 +117,21 @@ proxies:
   name: 加拿大2
   password: b24a80e79cee1d1f
   port: 20129
-  server: 46.29.163.195
+  server: 46.29.163.176
   type: ss
   udp: true
 - cipher: aes-256-gcm
   name: USCalifornia
   password: dada1203
   port: 80
-  server: 3.145.69.49
+  server: 3.139.93.32
   type: ss
   udp: true
 - cipher: aes-256-gcm
-  name: USHouston
+  name: JPOsaka
   password: dada1203
   port: 80
-  server: 3.138.37.159
-  type: ss
-  udp: true
-- cipher: aes-256-gcm
-  name: KRIncheon
-  password: dada1203
-  port: 80
-  server: 54.169.24.149
-  type: ss
-  udp: true
-- cipher: aes-256-gcm
-  name: SGSingapore
-  password: dada1203
-  port: 80
-  server: 13.211.164.74
+  server: 52.77.234.96
   type: ss
   udp: true
 - cipher: aes-256-gcm
@@ -156,56 +142,42 @@ proxies:
   type: ss
   udp: true
 - cipher: aes-256-gcm
-  name: JPTokyo
+  name: KRIncheon
   password: dada1203
   port: 80
-  server: 13.212.149.84
+  server: 47.128.66.235
   type: ss
   udp: true
 - cipher: aes-256-gcm
-  name: JPOsaka
+  name: SGSingapore
   password: dada1203
   port: 80
-  server: 52.74.135.1
+  server: 15.134.129.129
   type: ss
   udp: true
 - cipher: aes-256-gcm
   name: TWTaipei
   password: dada1203
   port: 80
-  server: 54.252.170.34
+  server: 13.212.116.177
+  type: ss
+  udp: true
+- cipher: aes-256-gcm
+  name: JPTokyo
+  password: dada1203
+  port: 80
+  server: 13.212.151.188
+  type: ss
+  udp: true
+- cipher: aes-256-gcm
+  name: USHouston
+  password: dada1203
+  port: 80
+  server: 3.138.37.159
   type: ss
   udp: true
 - cipher: aes-256-cfb
-  name: 高速专线7线
-  password: OlpwJ465
-  port: 30238
-  server: 125.122.25.163
-  type: ss
-  udp: true
-- cipher: aes-256-cfb
-  name: 高速专线8线
-  password: hahrgnUUr991
-  port: 48209
-  server: 182.61.60.225
-  type: ss
-  udp: true
-- cipher: aes-256-cfb
-  name: 高速专线4线
-  password: OlpwJ465
-  port: 30238
-  server: 125.122.25.163
-  type: ss
-  udp: true
-- cipher: aes-256-cfb
-  name: 高速专线1线
-  password: tiuuxUi0897
-  port: 40237
-  server: 8.134.98.238
-  type: ss
-  udp: true
-- cipher: aes-256-cfb
-  name: 高速专线3线
+  name: 高速专线6线
   password: OlpwJ465
   port: 30238
   server: 125.122.25.163
@@ -219,6 +191,27 @@ proxies:
   type: ss
   udp: true
 - cipher: aes-256-cfb
+  name: 高速专线7线
+  password: OlpwJ465
+  port: 30238
+  server: 125.122.25.163
+  type: ss
+  udp: true
+- cipher: aes-256-cfb
+  name: 高速专线3线
+  password: OlpwJ465
+  port: 30238
+  server: 125.122.25.163
+  type: ss
+  udp: true
+- cipher: aes-256-cfb
+  name: 高速专线4线
+  password: OlpwJ465
+  port: 30238
+  server: 125.122.25.163
+  type: ss
+  udp: true
+- cipher: aes-256-cfb
   name: 高速专线2线
   password: tiuuxUi0897
   port: 40237
@@ -226,10 +219,17 @@ proxies:
   type: ss
   udp: true
 - cipher: aes-256-cfb
-  name: 高速专线6线
-  password: OlpwJ465
-  port: 30238
-  server: 125.122.25.163
+  name: 高速专线1线
+  password: tiuuxUi0897
+  port: 40237
+  server: 8.134.98.238
+  type: ss
+  udp: true
+- cipher: aes-256-cfb
+  name: 高速专线8线
+  password: hahrgnUUr991
+  port: 48209
+  server: 182.61.60.225
   type: ss
   udp: true
 - cipher: chacha20-ietf-poly1305
@@ -314,21 +314,21 @@ proxy-groups:
   - 俄罗斯
   - 加拿大2
   - USCalifornia
-  - USHouston
+  - JPOsaka
+  - CAVancouver
   - KRIncheon
   - SGSingapore
-  - CAVancouver
-  - JPTokyo
-  - JPOsaka
   - TWTaipei
-  - 高速专线7线
-  - 高速专线8线
-  - 高速专线4线
-  - 高速专线1线
-  - 高速专线3线
-  - 高速专线5线
-  - 高速专线2线
+  - JPTokyo
+  - USHouston
   - 高速专线6线
+  - 高速专线5线
+  - 高速专线7线
+  - 高速专线3线
+  - 高速专线4线
+  - 高速专线2线
+  - 高速专线1线
+  - 高速专线8线
   - California#101
   - Chicago#101
   - Germany#102
