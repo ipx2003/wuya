@@ -24,9 +24,9 @@ proxies:
   udp: true
 - cipher: aes-256-gcm
   name: 新加坡
-  password: hxoxVYlGXJDq
+  password: 1Ndlq3QuPBFl
   port: 8388
-  server: 194.87.10.155
+  server: 192.124.176.20
   type: ss
   udp: true
 - cipher: aes-256-gcm
@@ -121,101 +121,59 @@ proxies:
   type: ss
   udp: true
 - cipher: aes-256-gcm
-  name: JPOsaka
-  password: dada1203
-  port: 80
-  server: 13.212.4.56
-  type: ss
-  udp: true
-- cipher: aes-256-gcm
-  name: USCalifornia
-  password: dada1203
-  port: 80
-  server: 18.117.170.90
-  type: ss
-  udp: true
-- cipher: aes-256-gcm
-  name: CAVancouver
-  password: dada1203
-  port: 80
-  server: 13.59.142.24
-  type: ss
-  udp: true
-- cipher: aes-256-gcm
-  name: KRIncheon
-  password: dada1203
-  port: 80
-  server: 54.151.195.186
-  type: ss
-  udp: true
-- cipher: aes-256-gcm
   name: SGSingapore
   password: dada1203
   port: 80
-  server: 13.212.142.217
+  server: 54.169.246.92
   type: ss
   udp: true
 - cipher: aes-256-gcm
   name: JPTokyo
   password: dada1203
   port: 80
-  server: 13.229.58.199
+  server: 13.250.63.234
+  type: ss
+  udp: true
+- cipher: aes-256-gcm
+  name: JPOsaka
+  password: dada1203
+  port: 80
+  server: 13.212.97.79
   type: ss
   udp: true
 - cipher: aes-256-gcm
   name: TWTaipei
   password: dada1203
   port: 80
-  server: 13.212.80.134
+  server: 47.129.143.46
+  type: ss
+  udp: true
+- cipher: aes-256-gcm
+  name: USCalifornia
+  password: dada1203
+  port: 80
+  server: 3.12.163.152
   type: ss
   udp: true
 - cipher: aes-256-gcm
   name: USHouston
   password: dada1203
   port: 80
-  server: 52.15.177.33
+  server: 3.138.68.209
   type: ss
   udp: true
-- cipher: aes-256-cfb
-  name: 高速专线3线
-  password: OlpwJ465
-  port: 30238
-  server: 125.122.25.163
+- cipher: aes-256-gcm
+  name: KRIncheon
+  password: dada1203
+  port: 80
+  server: 54.169.219.98
   type: ss
   udp: true
-- cipher: aes-256-cfb
-  name: 高速专线4线
-  password: OlpwJ465
-  port: 30238
-  server: 125.122.25.163
-  type: ss
-  udp: true
-- cipher: aes-256-cfb
-  name: 高速专线6线
-  password: OlpwJ465
-  port: 30238
-  server: 125.122.25.163
-  type: ss
-  udp: true
-- cipher: aes-256-cfb
-  name: 高速专线5线
-  password: hahrgnUUr991
-  port: 48209
-  server: 182.61.60.225
-  type: ss
-  udp: true
-- cipher: aes-256-cfb
-  name: 高速专线2线
-  password: tiuuxUi0897
-  port: 40237
-  server: 8.134.98.238
-  type: ss
-  udp: true
-- cipher: aes-256-cfb
-  name: 高速专线7线
-  password: OlpwJ465
-  port: 30238
-  server: 125.122.25.163
+- cipher: aes-256-gcm
+  name: CAVancouver
+  password: dada1203
+  port: 80
+  server: 3.149.245.194
   type: ss
   udp: true
 - cipher: aes-256-cfb
@@ -226,10 +184,52 @@ proxies:
   type: ss
   udp: true
 - cipher: aes-256-cfb
+  name: 高速专线5线
+  password: hahrgnUUr991
+  port: 48209
+  server: 182.61.60.225
+  type: ss
+  udp: true
+- cipher: aes-256-cfb
+  name: 高速专线3线
+  password: OlpwJ465
+  port: 30238
+  server: 125.122.25.163
+  type: ss
+  udp: true
+- cipher: aes-256-cfb
+  name: 高速专线2线
+  password: tiuuxUi0897
+  port: 40237
+  server: 8.134.98.238
+  type: ss
+  udp: true
+- cipher: aes-256-cfb
+  name: 高速专线6线
+  password: OlpwJ465
+  port: 30238
+  server: 125.122.25.163
+  type: ss
+  udp: true
+- cipher: aes-256-cfb
+  name: 高速专线7线
+  password: OlpwJ465
+  port: 30238
+  server: 125.122.25.163
+  type: ss
+  udp: true
+- cipher: aes-256-cfb
   name: 高速专线8线
   password: hahrgnUUr991
   port: 48209
   server: 182.61.60.225
+  type: ss
+  udp: true
+- cipher: aes-256-cfb
+  name: 高速专线4线
+  password: OlpwJ465
+  port: 30238
+  server: 125.122.25.163
   type: ss
   udp: true
 - cipher: chacha20-ietf-poly1305
@@ -313,22 +313,22 @@ proxy-groups:
   - 香港2
   - 俄罗斯
   - 加拿大2
-  - JPOsaka
-  - USCalifornia
-  - CAVancouver
-  - KRIncheon
   - SGSingapore
   - JPTokyo
+  - JPOsaka
   - TWTaipei
+  - USCalifornia
   - USHouston
-  - 高速专线3线
-  - 高速专线4线
-  - 高速专线6线
-  - 高速专线5线
-  - 高速专线2线
-  - 高速专线7线
+  - KRIncheon
+  - CAVancouver
   - 高速专线1线
+  - 高速专线5线
+  - 高速专线3线
+  - 高速专线2线
+  - 高速专线6线
+  - 高速专线7线
   - 高速专线8线
+  - 高速专线4线
   - California#101
   - Chicago#101
   - Germany#102
