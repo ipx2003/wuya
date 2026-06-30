@@ -135,13 +135,6 @@ proxies:
   type: ss
   udp: true
 - cipher: aes-256-cfb
-  name: 高速专线2线
-  password: tiuuxUi0897
-  port: 40237
-  server: 8.134.98.238
-  type: ss
-  udp: true
-- cipher: aes-256-cfb
   name: 高速专线4线
   password: OlpwJ465
   port: 30238
@@ -149,14 +142,7 @@ proxies:
   type: ss
   udp: true
 - cipher: aes-256-cfb
-  name: 高速专线5线
-  password: hahrgnUUr991
-  port: 48209
-  server: 182.61.60.225
-  type: ss
-  udp: true
-- cipher: aes-256-cfb
-  name: 高速专线3线
+  name: 高速专线6线
   password: OlpwJ465
   port: 30238
   server: 125.122.25.163
@@ -170,10 +156,24 @@ proxies:
   type: ss
   udp: true
 - cipher: aes-256-cfb
-  name: 高速专线6线
+  name: 高速专线3线
   password: OlpwJ465
   port: 30238
   server: 125.122.25.163
+  type: ss
+  udp: true
+- cipher: aes-256-cfb
+  name: 高速专线2线
+  password: tiuuxUi0897
+  port: 40237
+  server: 8.134.98.238
+  type: ss
+  udp: true
+- cipher: aes-256-cfb
+  name: 高速专线5线
+  password: hahrgnUUr991
+  port: 48209
+  server: 182.61.60.225
   type: ss
   udp: true
 - cipher: chacha20-ietf-poly1305
@@ -259,12 +259,12 @@ proxy-groups:
   - 加拿大2
   - 高速专线8线
   - 高速专线1线
-  - 高速专线2线
   - 高速专线4线
-  - 高速专线5线
-  - 高速专线3线
-  - 高速专线7线
   - 高速专线6线
+  - 高速专线7线
+  - 高速专线3线
+  - 高速专线2线
+  - 高速专线5线
   - California#101
   - Chicago#101
   - Germany#102
