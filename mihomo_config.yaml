@@ -19,28 +19,28 @@ proxies:
   name: 美国
   password: 32c0ea6e823341a2
   port: 30129
-  server: 46.17.43.147
+  server: 46.29.163.30
   type: ss
   udp: true
 - cipher: aes-256-gcm
   name: 新加坡
-  password: TdyTCGDIu9uE
+  password: mn3zdCLHZJrx
   port: 8388
-  server: 192.124.176.126
+  server: 192.124.176.24
   type: ss
   udp: true
 - cipher: aes-256-gcm
   name: 日本
-  password: dAEpTNLjiZqU
+  password: JI4mhbdD7yoV
   port: 8388
-  server: 150.251.158.172
+  server: 185.141.219.241
   type: ss
   udp: true
 - cipher: aes-256-gcm
   name: 香港
-  password: SUHw3r45761o
+  password: daXSkQFDH0G8
   port: 8388
-  server: 212.192.15.84
+  server: 212.192.15.121
   type: ss
   udp: true
 - cipher: aes-256-gcm
@@ -54,7 +54,7 @@ proxies:
   name: 法国
   password: fbaf33bcffe53cf9
   port: 50132
-  server: 176.32.39.96
+  server: 195.133.23.73
   type: ss
   udp: true
 - cipher: aes-256-gcm
@@ -68,27 +68,27 @@ proxies:
   name: 澳大利亚
   password: 1a87017d0bf57f34
   port: 32432
-  server: 195.133.23.142
+  server: 176.32.39.106
   type: ss
   udp: true
 - cipher: aes-256-gcm
   name: 加拿大
   password: 9f3d1a6d31468599
   port: 32012
-  server: 195.133.23.164
+  server: 195.133.23.200
   type: ss
   udp: true
 - cipher: aes-256-gcm
   name: 意大利
   password: cfe685726eea2c4b
-  port: 50129
+  port: 30888
   server: 46.17.43.63
   type: ss
   udp: true
 - cipher: aes-256-gcm
   name: 英国
   password: cfe685726eea2c4b
-  port: 50129
+  port: 30888
   server: 46.17.43.63
   type: ss
   udp: true
@@ -96,77 +96,42 @@ proxies:
   name: 西班牙
   password: 7e1dd4c55bf85da5
   port: 30129
-  server: 212.192.13.91
+  server: 212.192.13.214
   type: ss
   udp: true
 - cipher: aes-256-gcm
   name: 香港2
   password: b24a80e79cee1d1f
-  port: 30129
+  port: 30888
   server: 46.29.163.176
   type: ss
   udp: true
 - cipher: aes-256-gcm
   name: 俄罗斯
   password: 2803361d6c196af8
-  port: 60129
+  port: 30888
   server: 166.1.228.172
   type: ss
   udp: true
 - cipher: aes-256-gcm
   name: 加拿大2
   password: b24a80e79cee1d1f
-  port: 30129
+  port: 30888
   server: 46.29.163.176
-  type: ss
-  udp: true
-- cipher: aes-256-gcm
-  name: USHouston
-  password: dada1203
-  port: 80
-  server: 18.117.142.143
-  type: ss
-  udp: true
-- cipher: aes-256-gcm
-  name: KRIncheon
-  password: dada1203
-  port: 80
-  server: 13.193.217.180
   type: ss
   udp: true
 - cipher: aes-256-gcm
   name: JPOsaka
   password: dada1203
   port: 80
-  server: 16.176.175.119
-  type: ss
-  udp: true
-- cipher: aes-256-gcm
-  name: JPTokyo
-  password: dada1203
-  port: 80
-  server: 13.230.239.95
-  type: ss
-  udp: true
-- cipher: aes-256-gcm
-  name: TWTaipei
-  password: dada1203
-  port: 80
-  server: 52.192.243.192
+  server: 13.193.217.180
   type: ss
   udp: true
 - cipher: aes-256-cfb
-  name: 高速专线3线
-  password: OlpwJ465
-  port: 30238
-  server: 125.122.25.163
-  type: ss
-  udp: true
-- cipher: aes-256-cfb
-  name: 高速专线5线
-  password: hahrgnUUr991
-  port: 48209
-  server: 182.61.60.225
+  name: 高速专线1线
+  password: tiuuxUi0897
+  port: 40237
+  server: 8.134.98.238
   type: ss
   udp: true
 - cipher: aes-256-cfb
@@ -177,7 +142,7 @@ proxies:
   type: ss
   udp: true
 - cipher: aes-256-cfb
-  name: 高速专线4线
+  name: 高速专线7线
   password: OlpwJ465
   port: 30238
   server: 125.122.25.163
@@ -191,6 +156,20 @@ proxies:
   type: ss
   udp: true
 - cipher: aes-256-cfb
+  name: 高速专线4线
+  password: OlpwJ465
+  port: 30238
+  server: 125.122.25.163
+  type: ss
+  udp: true
+- cipher: aes-256-cfb
+  name: 高速专线3线
+  password: OlpwJ465
+  port: 30238
+  server: 125.122.25.163
+  type: ss
+  udp: true
+- cipher: aes-256-cfb
   name: 高速专线8线
   password: hahrgnUUr991
   port: 48209
@@ -198,17 +177,10 @@ proxies:
   type: ss
   udp: true
 - cipher: aes-256-cfb
-  name: 高速专线7线
-  password: OlpwJ465
-  port: 30238
-  server: 125.122.25.163
-  type: ss
-  udp: true
-- cipher: aes-256-cfb
-  name: 高速专线1线
-  password: tiuuxUi0897
-  port: 40237
-  server: 8.134.98.238
+  name: 高速专线5线
+  password: hahrgnUUr991
+  port: 48209
+  server: 182.61.60.225
   type: ss
   udp: true
 - cipher: chacha20-ietf-poly1305
@@ -292,19 +264,15 @@ proxy-groups:
   - 香港2
   - 俄罗斯
   - 加拿大2
-  - USHouston
-  - KRIncheon
   - JPOsaka
-  - JPTokyo
-  - TWTaipei
-  - 高速专线3线
-  - 高速专线5线
-  - 高速专线6线
-  - 高速专线4线
-  - 高速专线2线
-  - 高速专线8线
-  - 高速专线7线
   - 高速专线1线
+  - 高速专线6线
+  - 高速专线7线
+  - 高速专线2线
+  - 高速专线4线
+  - 高速专线3线
+  - 高速专线8线
+  - 高速专线5线
   - California#101
   - Chicago#101
   - Germany#102
